@@ -15,8 +15,7 @@ import javax.naming.spi.ObjectFactory;
 import javax.naming.spi.StateFactory;
 
 /**
- * This is the class to extend that provides
- * basic facilities for Namespace management.
+ * This is the class to extend that provides basic facilities for Namespace management.
  */
 public abstract class AbstractNamespace
   implements Namespace
@@ -30,21 +29,16 @@ public abstract class AbstractNamespace
                                 final Hashtable environment )
     throws NamingException
   {
-    //for thread safety so that member variable can be updated
-    //at any time
+    //for thread safety so that member variable can be updated at any time
     final StateFactory[] stateFactorySet = m_stateFactorySet;
-
-    for ( int i = 0; i < stateFactorySet.length; i++ )
+    for ( final StateFactory factory : stateFactorySet )
     {
-      final Object result =
-        stateFactorySet[ i ].getStateToBind( object, name, parent, environment );
-
+      final Object result = factory.getStateToBind( object, name, parent, environment );
       if ( null != result )
       {
         return result;
       }
     }
-
     return object;
   }
 
@@ -54,34 +48,28 @@ public abstract class AbstractNamespace
                                    final Hashtable environment )
     throws Exception
   {
-    //for thread safety so that member variable can be updated
-    //at any time
+    //for thread safety so that member variable can be updated at any time
     final ObjectFactory[] objectFactorySet = m_objectFactorySet;
-
-    for ( int i = 0; i < objectFactorySet.length; i++ )
+    for ( final ObjectFactory factory : objectFactorySet )
     {
-      final Object result =
-        objectFactorySet[ i ].getObjectInstance( object, name, parent, environment );
-
+      final Object result = factory.getObjectInstance( object, name, parent, environment );
       if ( null != result )
       {
         return result;
       }
     }
-
     return object;
   }
 
   /**
-   * Utility method for subclasses to add factorys.
+   * Utility method for subclasses to add factories.
    *
    * @param stateFactory the StateFactory to add
    */
   protected synchronized void addStateFactory( final StateFactory stateFactory )
   {
     //create new array of factory objects
-    final StateFactory[] stateFactorySet =
-      new StateFactory[ m_stateFactorySet.length + 1 ];
+    final StateFactory[] stateFactorySet = new StateFactory[ m_stateFactorySet.length + 1 ];
 
     //copy old factory objects to new array
     System.arraycopy( m_stateFactorySet, 0, stateFactorySet, 0, m_stateFactorySet.length );
@@ -94,15 +82,14 @@ public abstract class AbstractNamespace
   }
 
   /**
-   * Utility method for subclasses to add factorys.
+   * Utility method for subclasses to add factories.
    *
    * @param objectFactory the ObjectFactory to add
    */
   protected synchronized void addObjectFactory( final ObjectFactory objectFactory )
   {
     //create new array of factory objects
-    final ObjectFactory[] objectFactorySet =
-      new ObjectFactory[ m_objectFactorySet.length + 1 ];
+    final ObjectFactory[] objectFactorySet = new ObjectFactory[ m_objectFactorySet.length + 1 ];
 
     //copy old factory objects to new array
     System.arraycopy( m_objectFactorySet, 0, objectFactorySet, 0, m_objectFactorySet.length );
