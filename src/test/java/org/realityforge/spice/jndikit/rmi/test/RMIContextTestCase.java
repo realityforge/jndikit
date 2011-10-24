@@ -21,9 +21,6 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
 
 /**
  * Unit test for RMI context.
- *
- * @author Tim Anderson
- * @version $Revision: 1.2 $
  */
 public class RMIContextTestCase
     extends AbstractRMIContextTestCase

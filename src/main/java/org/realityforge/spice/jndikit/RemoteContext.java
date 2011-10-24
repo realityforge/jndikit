@@ -27,9 +27,6 @@ import javax.naming.Referenceable;
 
 /**
  * Context that hooks up to a remote source.
- *
- * @author Peter Donald
- * @version $Revision: 1.2 $
  */
 public class RemoteContext
     extends AbstractContext

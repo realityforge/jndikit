@@ -12,9 +12,6 @@ import org.realityforge.spice.jndikit.NamingProvider;
 
 /**
  * The underlying communication interface for remote contexts.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public interface RMINamingProvider
     extends NamingProvider, Remote

@@ -15,10 +15,7 @@ import org.realityforge.spice.jndikit.StandardNamespace;
 import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
 
 /**
- * Unit test for Memory context, using the {@link StandardNamespace}. ,
- *
- * @author Tim Anderson
- * @version $Revision: 1.1 $
+ * Unit test for Memory context, using the {@link StandardNamespace}.
  */
 public abstract class AbstractMemoryContextTestCase
     extends AbstractContextTestCase
@@ -29,8 +26,7 @@ public abstract class AbstractMemoryContextTestCase
         try
         {
             String name = m_context.getNameInNamespace();
-            fail( "Expected getNameInNamespace to throw OperationNotSupportedException but returned "
-                  + name );
+            fail( "Expected getNameInNamespace to throw OperationNotSupportedException but returned " + name );
         }
         catch( final OperationNotSupportedException expected )
         {

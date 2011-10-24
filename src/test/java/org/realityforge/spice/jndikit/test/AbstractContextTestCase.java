@@ -30,9 +30,6 @@ import junit.framework.TestCase;
 
 /**
  * Unit testing for JNDI system
- *
- * @author Peter Donald
- * @version $Revision: 1.3 $
  */
 public abstract class AbstractContextTestCase
     extends TestCase

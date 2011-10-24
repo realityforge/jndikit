@@ -18,8 +18,6 @@ import javax.naming.spi.ObjectFactory;
 /**
  * Implementation of {@link ObjectFactory}, for testing purposes.
  *
- * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
- * @version $Revision: 1.1 $ $Date: 2005-06-30 04:22:16 $
  * @see TestDataReferenceable
  */
 public class TestObjectFactory implements ObjectFactory

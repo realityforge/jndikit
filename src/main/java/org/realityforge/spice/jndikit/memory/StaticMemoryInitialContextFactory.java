@@ -19,9 +19,6 @@ import org.realityforge.spice.jndikit.DefaultNamespace;
  * retrieve the {@link MemoryContext} from a static variable.
  * Thus this factory will always return the same instance of
  * memory context.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public class StaticMemoryInitialContextFactory
     implements InitialContextFactory

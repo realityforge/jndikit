@@ -41,9 +41,6 @@ import org.realityforge.spice.jndikit.DefaultNamespace;
  *       in a static map variable that maps between parameter and
  *       context.</li>
  * </ul>
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public class MemoryInitialContextFactory
     implements InitialContextFactory

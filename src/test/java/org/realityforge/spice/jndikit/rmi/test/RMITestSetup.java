@@ -17,10 +17,6 @@ import org.realityforge.spice.jndikit.rmi.server.Main;
 
 /**
  * Helper for setting up and tearing down the RMI naming provider.
- *
- * @author Peter Donald
- * @author Tim Anderson
- * @version $Revision: 1.1 $ $Date: 2005-06-30 04:22:16 $
  */
 public class RMITestSetup
 {

@@ -20,11 +20,7 @@ import org.realityforge.spice.jndikit.DefaultNamespace;
 import org.realityforge.spice.jndikit.memory.MemoryContext;
 
 /**
- * This is a simple test name server and should NOT be used in a
- * production system.
- *
- * @author Peter Donald
- * @version $Revision: 1.2 $
+ * This is a simple test name server and should NOT be used in a production system.
  */
 public class Main
     implements Runnable

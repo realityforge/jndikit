@@ -22,9 +22,6 @@ import org.realityforge.spice.jndikit.rmi.RMINamingProvider;
 
 /**
  * The RMI implementation of provider.
- *
- * @author Peter Donald
- * @version $Revision: 1.2 $
  */
 public class RMINamingProviderImpl
     implements Serializable, RMINamingProvider

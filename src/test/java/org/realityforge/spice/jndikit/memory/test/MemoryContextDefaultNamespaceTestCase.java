@@ -17,9 +17,6 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
 
 /**
  * Unit test for Memory context, using the {@link DefaultNamespace}.
- *
- * @author Tim Anderson
- * @version $Revision: 1.1 $
  */
 public class MemoryContextDefaultNamespaceTestCase
     extends AbstractMemoryContextTestCase

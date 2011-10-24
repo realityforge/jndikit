@@ -26,9 +26,6 @@ import org.realityforge.spice.jndikit.RemoteContext;
 
 /**
  * Initial context factory for memorycontext.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public class RMIInitialContextFactory
     implements InitialContextFactory

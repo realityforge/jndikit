@@ -15,9 +15,6 @@ import javax.naming.NamingException;
 
 /**
  * Class for building NamingEnumerations.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public abstract class AbstractNamingEnumeration
     implements NamingEnumeration

@@ -13,9 +13,6 @@ import javax.naming.spi.StateFactory;
 
 /**
  * This is the default namespace implementation.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public class DefaultNamespace
     extends AbstractNamespace

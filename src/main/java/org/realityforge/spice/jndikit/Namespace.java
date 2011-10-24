@@ -14,11 +14,7 @@ import javax.naming.spi.StateFactory;
 
 /**
  * Interface representing Namespace/NamingSystem.
- * Associated with each namespace is a name parser,
- * object factories and state factories.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
+ * Associated with each namespace is a name parser, object factories and state factories.
  */
 public interface Namespace
     extends ObjectFactory, StateFactory

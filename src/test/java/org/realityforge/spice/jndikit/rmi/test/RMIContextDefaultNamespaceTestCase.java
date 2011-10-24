@@ -18,9 +18,6 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
 
 /**
  * Unit test for RMI context, using the {@link DefaultNamespace}.
- *
- * @author Tim Anderson
- * @version $Revision: 1.1 $
  */
 public class RMIContextDefaultNamespaceTestCase
     extends AbstractRMIContextTestCase

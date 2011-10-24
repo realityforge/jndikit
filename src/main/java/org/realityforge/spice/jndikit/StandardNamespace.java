@@ -16,9 +16,6 @@ import javax.naming.spi.NamingManager;
 
 /**
  * Namespace that directly uses NamingManager.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public class StandardNamespace
     implements Namespace

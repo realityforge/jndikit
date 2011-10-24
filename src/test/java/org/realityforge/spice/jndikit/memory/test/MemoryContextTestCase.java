@@ -17,11 +17,7 @@ import org.realityforge.spice.jndikit.memory.MemoryContext;
 import org.realityforge.spice.jndikit.test.TestStateFactory;
 
 /**
- * Unit test for Memory context, using the {@link StandardNamespace}. ,
- *
- * @author Peter Donald
- * @author Tim Anderson
- * @version $Revision: 1.2 $
+ * Unit test for Memory context, using the {@link StandardNamespace}.
  */
 public class MemoryContextTestCase
     extends AbstractMemoryContextTestCase
@@ -33,8 +29,7 @@ public class MemoryContextTestCase
         final Namespace namespace = new StandardNamespace( parser );
 
         Hashtable environment = new Hashtable();
-        environment.put( Context.STATE_FACTORIES,
-                         TestStateFactory.class.getName() );
+        environment.put( Context.STATE_FACTORIES, TestStateFactory.class.getName() );
 
         return new MemoryContext( namespace, environment, null );
     }

@@ -17,9 +17,6 @@ import javax.naming.NamingException;
 /**
  * A simple cas sensitive name parser that reads left
  * to right with '/' as separator.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $ $Date: 2003-11-27 00:50:47 $
  */
 public class DefaultNameParser
     implements Serializable, NameParser

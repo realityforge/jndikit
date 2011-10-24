@@ -20,9 +20,6 @@ import javax.naming.spi.ResolveResult;
 /**
  * Abstract JNDI Context that can be inherited from to
  * provide a particular type of Context.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public abstract class AbstractURLContext
     extends AbstractContext

@@ -19,9 +19,6 @@ import org.realityforge.spice.jndikit.Namespace;
 
 /**
  * Class for building NamingEnumerations.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 final class MemoryNamingEnumeration
     extends AbstractNamingEnumeration

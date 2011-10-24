@@ -16,9 +16,6 @@ import javax.naming.NamingException;
 
 /**
  * The underlying communication interface for remote contexts.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public interface NamingProvider
 {

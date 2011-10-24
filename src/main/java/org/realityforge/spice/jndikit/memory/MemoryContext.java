@@ -18,9 +18,6 @@ import org.realityforge.spice.jndikit.Namespace;
 
 /**
  * An in memory context implementation.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public class MemoryContext
     extends AbstractLocalContext

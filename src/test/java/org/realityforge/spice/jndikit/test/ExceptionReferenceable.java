@@ -15,8 +15,6 @@ import javax.naming.Referenceable;
  * TestObjectFactory} encounters a {@link Reference} to this, it throws an
  * exception.
  *
- * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
- * @version $Revision: 1.1 $ $Date: 2005-06-30 04:22:16 $
  * @see TestObjectFactory
  */
 public class ExceptionReferenceable implements Referenceable

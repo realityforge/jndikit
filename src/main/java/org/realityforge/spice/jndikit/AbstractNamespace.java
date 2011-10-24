@@ -17,9 +17,6 @@ import javax.naming.spi.StateFactory;
 /**
  * This is the class to extend that provides
  * basic facilities for Namespace management.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
  */
 public abstract class AbstractNamespace
     implements Namespace

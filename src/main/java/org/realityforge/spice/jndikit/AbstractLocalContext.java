@@ -24,9 +24,6 @@ import javax.naming.Referenceable;
  * Abstract local JNDI Context that can be inherited from to
  * provide a particular type of Context. These contexts are assumed to be
  * on the same machine.
- *
- * @author Peter Donald
- * @version $Revision: 1.3 $
  */
 public abstract class AbstractLocalContext
     extends AbstractContext

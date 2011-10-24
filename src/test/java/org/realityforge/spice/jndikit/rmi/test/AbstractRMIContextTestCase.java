@@ -16,9 +16,6 @@ import junit.framework.AssertionFailedError;
 
 /**
  * Unit test for RMI context.
- *
- * @author Tim Anderson
- * @version $Revision: 1.1 $
  */
 public abstract class AbstractRMIContextTestCase
     extends AbstractContextTestCase
