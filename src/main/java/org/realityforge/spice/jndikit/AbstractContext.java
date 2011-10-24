@@ -8,9 +8,11 @@
 package org.realityforge.spice.jndikit;
 
 import java.util.Hashtable;
+import javax.naming.Binding;
 import javax.naming.Context;
 import javax.naming.InvalidNameException;
 import javax.naming.Name;
+import javax.naming.NameClassPair;
 import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -178,7 +180,7 @@ public abstract class AbstractContext
   /**
    * {@inheritDoc}
    */
-  public NamingEnumeration list( final String name )
+  public NamingEnumeration<NameClassPair> list( final String name )
     throws NamingException
   {
     return list( getNameParser().parse( name ) );
@@ -187,7 +189,7 @@ public abstract class AbstractContext
   /**
    * {@inheritDoc}
    */
-  public NamingEnumeration listBindings( final String name )
+  public NamingEnumeration<Binding> listBindings( final String name )
     throws NamingException
   {
     return listBindings( getNameParser().parse( name ) );
@@ -296,7 +298,7 @@ public abstract class AbstractContext
    *
    * @return the environment map or null
    */
-  protected final Hashtable getRawEnvironment()
+  protected final Hashtable<String, Object> getRawEnvironment()
   {
     return m_environment;
   }
