@@ -17,56 +17,56 @@ import javax.naming.NamingException;
  * Class for building NamingEnumerations.
  */
 public abstract class AbstractNamingEnumeration
-    implements NamingEnumeration
+  implements NamingEnumeration
 {
-    private Context m_owner;
-    private Namespace m_namespace;
+  private Context m_owner;
+  private Namespace m_namespace;
 
-    public AbstractNamingEnumeration( final Context owner, final Namespace namespace )
-    {
-        m_owner = owner;
-        m_namespace = namespace;
-    }
+  public AbstractNamingEnumeration( final Context owner, final Namespace namespace )
+  {
+    m_owner = owner;
+    m_namespace = namespace;
+  }
 
-    public boolean hasMore()
-        throws NamingException
-    {
-        return hasMoreElements();
-    }
+  public boolean hasMore()
+    throws NamingException
+  {
+    return hasMoreElements();
+  }
 
-    public Object nextElement()
+  public Object nextElement()
+  {
+    try
     {
-        try
-        {
-            return next();
-        }
-        catch( final NamingException ne )
-        {
-            throw new NoSuchElementException( ne.toString() );
-        }
+      return next();
     }
+    catch ( final NamingException ne )
+    {
+      throw new NoSuchElementException( ne.toString() );
+    }
+  }
 
-    protected Object resolve( final String name, final Object object )
-        throws NamingException
+  protected Object resolve( final String name, final Object object )
+    throws NamingException
+  {
+    // Call getObjectInstance for using any object factories
+    try
     {
-        // Call getObjectInstance for using any object factories
-        try
-        {
-            final Name atom = m_owner.getNameParser( name ).parse( name );
-            return m_namespace.
-                getObjectInstance( object, atom, m_owner, m_owner.getEnvironment() );
-        }
-        catch( final Exception e )
-        {
-            final NamingException ne = new NamingException( "getObjectInstance failed" );
-            ne.setRootCause( e );
-            throw ne;
-        }
+      final Name atom = m_owner.getNameParser( name ).parse( name );
+      return m_namespace.
+        getObjectInstance( object, atom, m_owner, m_owner.getEnvironment() );
     }
+    catch ( final Exception e )
+    {
+      final NamingException ne = new NamingException( "getObjectInstance failed" );
+      ne.setRootCause( e );
+      throw ne;
+    }
+  }
 
-    public void close()
-    {
-        m_namespace = null;
-        m_owner = null;
-    }
+  public void close()
+  {
+    m_namespace = null;
+    m_owner = null;
+  }
 }

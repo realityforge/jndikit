@@ -19,30 +19,30 @@ import javax.naming.NamingException;
  */
 public interface NamingProvider
 {
-    NameParser getNameParser()
-        throws NamingException, Exception;
+  NameParser getNameParser()
+    throws NamingException, Exception;
 
-    void bind( Name name, String className, Object object )
-        throws NamingException, Exception;
+  void bind( Name name, String className, Object object )
+    throws NamingException, Exception;
 
-    void rebind( Name name, String className, Object object )
-        throws NamingException, Exception;
+  void rebind( Name name, String className, Object object )
+    throws NamingException, Exception;
 
-    Context createSubcontext( Name name )
-        throws NamingException, Exception;
+  Context createSubcontext( Name name )
+    throws NamingException, Exception;
 
-    void destroySubcontext( Name name )
-        throws NamingException, Exception;
+  void destroySubcontext( Name name )
+    throws NamingException, Exception;
 
-    NameClassPair[] list( Name name )
-        throws NamingException, Exception;
+  NameClassPair[] list( Name name )
+    throws NamingException, Exception;
 
-    Binding[] listBindings( Name name )
-        throws NamingException, Exception;
+  Binding[] listBindings( Name name )
+    throws NamingException, Exception;
 
-    Object lookup( Name name )
-        throws NamingException, Exception;
+  Object lookup( Name name )
+    throws NamingException, Exception;
 
-    void unbind( Name name )
-        throws NamingException, Exception;
+  void unbind( Name name )
+    throws NamingException, Exception;
 }

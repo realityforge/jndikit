@@ -17,8 +17,8 @@ import javax.naming.spi.StateFactory;
  * Associated with each namespace is a name parser, object factories and state factories.
  */
 public interface Namespace
-    extends ObjectFactory, StateFactory
+  extends ObjectFactory, StateFactory
 {
-    NameParser getNameParser()
-        throws NamingException;
+  NameParser getNameParser()
+    throws NamingException;
 }

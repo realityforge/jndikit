@@ -19,20 +19,20 @@ import javax.naming.NamingException;
  * to right with '/' as separator.
  */
 public class DefaultNameParser
-    implements Serializable, NameParser
+  implements Serializable, NameParser
 {
-    private static Properties c_syntax = new Properties();
+  private static Properties c_syntax = new Properties();
 
-    static
-    {
-        c_syntax.put( "jndi.syntax.direction", "left_to_right" );
-        c_syntax.put( "jndi.syntax.ignorecase", "false" );
-        c_syntax.put( "jndi.syntax.separator", "/" );
-    }
+  static
+  {
+    c_syntax.put( "jndi.syntax.direction", "left_to_right" );
+    c_syntax.put( "jndi.syntax.ignorecase", "false" );
+    c_syntax.put( "jndi.syntax.separator", "/" );
+  }
 
-    public Name parse( final String name )
-        throws NamingException
-    {
-        return new CompoundName( name, c_syntax );
-    }
+  public Name parse( final String name )
+    throws NamingException
+  {
+    return new CompoundName( name, c_syntax );
+  }
 }

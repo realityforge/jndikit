@@ -17,19 +17,20 @@ import javax.naming.Referenceable;
  *
  * @see TestObjectFactory
  */
-public class ExceptionReferenceable implements Referenceable
+public class ExceptionReferenceable
+  implements Referenceable
 {
 
-    /**
-     * Retrieves the Reference of this object.
-     *
-     * @return the non-null Reference of this object.
-     */
-    public Reference getReference()
-    {
-        return new Reference( getClass().getName(),
-                              TestObjectFactory.class.getName(),
-                              null );
-    }
+  /**
+   * Retrieves the Reference of this object.
+   *
+   * @return the non-null Reference of this object.
+   */
+  public Reference getReference()
+  {
+    return new Reference( getClass().getName(),
+                          TestObjectFactory.class.getName(),
+                          null );
+  }
 
 }

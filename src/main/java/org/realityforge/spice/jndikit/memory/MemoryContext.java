@@ -20,85 +20,85 @@ import org.realityforge.spice.jndikit.Namespace;
  * An in memory context implementation.
  */
 public class MemoryContext
-    extends AbstractLocalContext
+  extends AbstractLocalContext
 {
-    private Hashtable m_bindings;
+  private Hashtable m_bindings;
 
-    protected MemoryContext( final Namespace namespace,
-                             final Hashtable environment,
-                             final Context parent,
-                             final Hashtable bindings )
-    {
-        super( namespace, environment, parent );
-        m_bindings = bindings;
-    }
+  protected MemoryContext( final Namespace namespace,
+                           final Hashtable environment,
+                           final Context parent,
+                           final Hashtable bindings )
+  {
+    super( namespace, environment, parent );
+    m_bindings = bindings;
+  }
 
-    public MemoryContext( final Namespace namespace,
-                          final Hashtable environment,
-                          final Context parent )
-    {
-        this( namespace, environment, parent, new Hashtable( 11 ) );
-    }
+  public MemoryContext( final Namespace namespace,
+                        final Hashtable environment,
+                        final Context parent )
+  {
+    this( namespace, environment, parent, new Hashtable( 11 ) );
+  }
 
-    protected Context newContext()
-        throws NamingException
-    {
-        return new MemoryContext( getNamespace(), getRawEnvironment(), getParent() );
-    }
+  protected Context newContext()
+    throws NamingException
+  {
+    return new MemoryContext( getNamespace(), getRawEnvironment(), getParent() );
+  }
 
-    protected Context cloneContext()
-        throws NamingException
-    {
-        return new MemoryContext( getNamespace(), getRawEnvironment(), getParent(), m_bindings );
-    }
+  protected Context cloneContext()
+    throws NamingException
+  {
+    return new MemoryContext( getNamespace(), getRawEnvironment(), getParent(), m_bindings );
+  }
 
-    protected void doLocalBind( final Name name, final Object object )
-        throws NamingException
-    {
-        m_bindings.put( name.get( 0 ), object );
-    }
+  protected void doLocalBind( final Name name, final Object object )
+    throws NamingException
+  {
+    m_bindings.put( name.get( 0 ), object );
+  }
 
-    protected NamingEnumeration doLocalList()
-        throws NamingException
-    {
-        return new MemoryNamingEnumeration( this, getNamespace(), m_bindings, false );
-    }
+  protected NamingEnumeration doLocalList()
+    throws NamingException
+  {
+    return new MemoryNamingEnumeration( this, getNamespace(), m_bindings, false );
+  }
 
-    protected NamingEnumeration doLocalListBindings()
-        throws NamingException
-    {
-        return new MemoryNamingEnumeration( this, getNamespace(), m_bindings, true );
-    }
+  protected NamingEnumeration doLocalListBindings()
+    throws NamingException
+  {
+    return new MemoryNamingEnumeration( this, getNamespace(), m_bindings, true );
+  }
 
-    /**
-     * Actually lookup raw entry in local context.
-     * When overidding this it is not neccesary to resolve references etc.
-     *
-     * @param name the name in local context (size() == 1)
-     * @return the bound object
-     * @throws javax.naming.NamingException if an error occurs
-     */
-    protected Object doLocalLookup( final Name name )
-        throws NamingException
+  /**
+   * Actually lookup raw entry in local context.
+   * When overidding this it is not neccesary to resolve references etc.
+   *
+   * @param name the name in local context (size() == 1)
+   * @return the bound object
+   * @throws javax.naming.NamingException if an error occurs
+   */
+  protected Object doLocalLookup( final Name name )
+    throws NamingException
+  {
+    final Object object = m_bindings.get( name.get( 0 ) );
+    if ( null == object )
     {
-        final Object object = m_bindings.get( name.get( 0 ) );
-        if( null == object )
-        {
-            throw new NameNotFoundException( name.get( 0 ) );
-        }
-        return object;
+      throw new NameNotFoundException( name.get( 0 ) );
     }
+    return object;
+  }
 
-    /**
-     * Actually unbind raw entry in local context.
-     *
-     * @param name the name in local context (size() == 1)
-     * @throws javax.naming.NamingException if an error occurs
-     */
-    protected void doLocalUnbind( final Name name )
-        throws NamingException
-    {
-        m_bindings.remove( name.get( 0 ) );
-    }
+  /**
+   * Actually unbind raw entry in local context.
+   *
+   * @param name the name in local context (size() == 1)
+   * @throws javax.naming.NamingException if an error occurs
+   */
+  protected void doLocalUnbind( final Name name )
+    throws NamingException
+  {
+    m_bindings.remove( name.get( 0 ) );
+  }
 }
 

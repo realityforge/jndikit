@@ -15,9 +15,9 @@ import java.rmi.MarshalledObject;
 import java.util.Hashtable;
 import javax.naming.ConfigurationException;
 import javax.naming.Context;
+import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.naming.ServiceUnavailableException;
-import javax.naming.Name;
 import javax.naming.spi.InitialContextFactory;
 import org.realityforge.spice.jndikit.DefaultNamespace;
 import org.realityforge.spice.jndikit.Namespace;
@@ -28,126 +28,126 @@ import org.realityforge.spice.jndikit.RemoteContext;
  * Initial context factory for memorycontext.
  */
 public class RMIInitialContextFactory
-    implements InitialContextFactory
+  implements InitialContextFactory
 {
-    public Context getInitialContext( final Hashtable environment )
-        throws NamingException
+  public Context getInitialContext( final Hashtable environment )
+    throws NamingException
+  {
+    final NamingProvider provider = newNamingProvider( environment );
+    environment.put( RemoteContext.NAMING_PROVIDER, provider );
+
+    final Namespace namespace = newNamespace( environment );
+    environment.put( RemoteContext.NAMESPACE, namespace );
+
+    final Name baseName = namespace.getNameParser().parse( "" );
+    return new RemoteContext( environment, baseName );
+  }
+
+  protected NamingProvider newNamingProvider( final Hashtable environment )
+    throws NamingException
+  {
+    final String url = (String) environment.get( Context.PROVIDER_URL );
+    if ( null == url )
     {
-        final NamingProvider provider = newNamingProvider( environment );
-        environment.put( RemoteContext.NAMING_PROVIDER, provider );
-
-        final Namespace namespace = newNamespace( environment );
-        environment.put( RemoteContext.NAMESPACE, namespace );
-
-        final Name baseName = namespace.getNameParser().parse( "" );
-        return new RemoteContext( environment, baseName );
+      return newNamingProvider( "localhost", 1977 );
     }
-
-    protected NamingProvider newNamingProvider( final Hashtable environment )
-        throws NamingException
+    else
     {
-        final String url = (String)environment.get( Context.PROVIDER_URL );
-        if( null == url )
-        {
-            return newNamingProvider( "localhost", 1977 );
-        }
-        else
-        {
-            if( !url.startsWith( "rmi://" ) )
-            {
-                throw new ConfigurationException( "Malformed url - " + url );
-            }
+      if ( !url.startsWith( "rmi://" ) )
+      {
+        throw new ConfigurationException( "Malformed url - " + url );
+      }
 
-            final int index = url.indexOf( ':', 6 );
-            int end = index;
+      final int index = url.indexOf( ':', 6 );
+      int end = index;
 
-            int port = 1977;
+      int port = 1977;
 
-            if( -1 == index )
-            {
-                end = url.length();
-            }
-            else
-            {
-                port = Integer.parseInt( url.substring( index + 1 ) );
-            }
+      if ( -1 == index )
+      {
+        end = url.length();
+      }
+      else
+      {
+        port = Integer.parseInt( url.substring( index + 1 ) );
+      }
 
-            final String host = url.substring( 6, end );
+      final String host = url.substring( 6, end );
 
-            return newNamingProvider( host, port );
-        }
+      return newNamingProvider( host, port );
     }
+  }
 
-    protected NamingProvider newNamingProvider( final String host,
-                                                final int port )
-        throws NamingException
+  protected NamingProvider newNamingProvider( final String host,
+                                              final int port )
+    throws NamingException
+  {
+    Socket socket = null;
+
+    try
     {
-        Socket socket = null;
+      socket = new Socket( host, port );
 
+      final BufferedInputStream buffered =
+        new BufferedInputStream( socket.getInputStream() );
+      final ObjectInputStream input = new ObjectInputStream( buffered );
+
+      final MarshalledObject object =
+        (MarshalledObject) input.readObject();
+      final NamingProvider provider = (NamingProvider) object.get();
+
+      socket.close();
+      socket = null;
+
+      return provider;
+    }
+    catch ( final Exception e )
+    {
+      final ServiceUnavailableException sue =
+        new ServiceUnavailableException( e.getMessage() );
+      sue.setRootCause( e );
+      throw sue;
+    }
+    finally
+    {
+      if ( null != socket )
+      {
         try
         {
-            socket = new Socket( host, port );
-
-            final BufferedInputStream buffered =
-                new BufferedInputStream( socket.getInputStream() );
-            final ObjectInputStream input = new ObjectInputStream( buffered );
-
-            final MarshalledObject object =
-                (MarshalledObject)input.readObject();
-            final NamingProvider provider =(NamingProvider)object.get();
-
-            socket.close();
-            socket = null;
-
-            return provider;
+          socket.close();
         }
-        catch( final Exception e )
+        catch ( final IOException ioe )
         {
-            final ServiceUnavailableException sue =
-                new ServiceUnavailableException( e.getMessage() );
-            sue.setRootCause( e );
-            throw sue;
+          //Ignored.
         }
-        finally
-        {
-            if( null != socket )
-            {
-                try
-                {
-                    socket.close();
-                }
-                catch( final IOException ioe )
-                {
-                    //Ignored.
-                }
-            }
-        }
+      }
     }
+  }
 
-    protected Namespace newNamespace( final Hashtable environment )
-        throws NamingException
+  protected Namespace newNamespace( final Hashtable environment )
+    throws NamingException
+  {
+    try
     {
-        try
-        {
-            final NamingProvider provider =
-                (NamingProvider)environment.get( RemoteContext.NAMING_PROVIDER );
+      final NamingProvider provider =
+        (NamingProvider) environment.get( RemoteContext.NAMING_PROVIDER );
 
-            return new DefaultNamespace( provider.getNameParser() );
-        }
-        catch( final Exception e )
-        {
-            if( e instanceof NamingException )
-            {
-                throw (NamingException)e;
-            }
-            else
-            {
-                final ServiceUnavailableException sue =
-                    new ServiceUnavailableException( e.getMessage() );
-                sue.setRootCause( e );
-                throw sue;
-            }
-        }
+      return new DefaultNamespace( provider.getNameParser() );
     }
+    catch ( final Exception e )
+    {
+      if ( e instanceof NamingException )
+      {
+        throw (NamingException) e;
+      }
+      else
+      {
+        final ServiceUnavailableException sue =
+          new ServiceUnavailableException( e.getMessage() );
+        sue.setRootCause( e );
+        throw sue;
+      }
+    }
+  }
 }
 

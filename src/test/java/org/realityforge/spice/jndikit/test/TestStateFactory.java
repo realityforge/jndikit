@@ -11,28 +11,27 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.Name;
 import javax.naming.NamingException;
-import javax.naming.spi.DirectoryManager;
-import javax.naming.spi.NamingManager;
 import javax.naming.spi.StateFactory;
 
 
 /**
  * Implementation of  {@link StateFactory} for testing purposes.
  */
-public class TestStateFactory implements StateFactory
+public class TestStateFactory
+  implements StateFactory
 {
-    public Object getStateToBind( Object obj, Name name, Context nameCtx,
-                                  Hashtable environment )
-        throws NamingException
+  public Object getStateToBind( Object obj, Name name, Context nameCtx,
+                                Hashtable environment )
+    throws NamingException
+  {
+    Object result = null;
+    if ( obj instanceof TestData )
     {
-        Object result = null;
-        if( obj instanceof TestData )
-        {
-            TestData data = ( TestData ) obj;
-            TestDataReferenceable ref = new TestDataReferenceable(
-                data.getValue() );
-            result = ref.getReference();
-        }
-        return result;
+      TestData data = (TestData) obj;
+      TestDataReferenceable ref = new TestDataReferenceable(
+        data.getValue() );
+      result = ref.getReference();
     }
+    return result;
+  }
 }

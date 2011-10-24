@@ -13,50 +13,51 @@ import javax.naming.Context;
 /**
  * Helper class for testing behaviour of {@link Context#bind} operations.
  */
-public class TestData implements Serializable
+public class TestData
+  implements Serializable
 {
 
-    /**
-     * Arbitrary test value.
-     */
-    private String _value;
+  /**
+   * Arbitrary test value.
+   */
+  private String _value;
 
 
-    /**
-     * Default ctor for serialization.
-     */
-    public TestData()
-    {
-    }
+  /**
+   * Default ctor for serialization.
+   */
+  public TestData()
+  {
+  }
 
-    /**
-     * Construct a new <code>TestData</code>.
-     *
-     * @param value test data
-     */
-    public TestData( String value )
-    {
-        _value = value;
-    }
+  /**
+   * Construct a new <code>TestData</code>.
+   *
+   * @param value test data
+   */
+  public TestData( String value )
+  {
+    _value = value;
+  }
 
-    /**
-     * Sets the value of this.
-     *
-     * @param value the value
-     */
-    public void setValue( String value )
-    {
-        _value = value;
-    }
+  /**
+   * Sets the value of this.
+   *
+   * @param value the value
+   */
+  public void setValue( String value )
+  {
+    _value = value;
+  }
 
-    /**
-     * Returns the value of this.
-     *
-     * @return the value of this, assigned during construction
-     */
-    public String getValue()
-    {
-        return _value;
-    }
+  /**
+   * Returns the value of this.
+   *
+   * @return the value of this, assigned during construction
+   */
+  public String getValue()
+  {
+    return _value;
+  }
 
 }

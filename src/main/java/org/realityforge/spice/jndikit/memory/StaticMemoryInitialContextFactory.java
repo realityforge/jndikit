@@ -21,25 +21,25 @@ import org.realityforge.spice.jndikit.DefaultNamespace;
  * memory context.
  */
 public class StaticMemoryInitialContextFactory
-    implements InitialContextFactory
+  implements InitialContextFactory
 {
-    private static final MemoryContext MEMORY_CONTEXT = createMemoryContext();
+  private static final MemoryContext MEMORY_CONTEXT = createMemoryContext();
 
-    public Context getInitialContext( final Hashtable environment )
-        throws NamingException
-    {
-        return MEMORY_CONTEXT;
-    }
+  public Context getInitialContext( final Hashtable environment )
+    throws NamingException
+  {
+    return MEMORY_CONTEXT;
+  }
 
-    /**
-     * Method to create the inital {@link MemoryContext}.
-     *
-     * @return the new {@link MemoryContext}.
-     */
-    private static MemoryContext createMemoryContext()
-    {
-        final DefaultNamespace namespace = new DefaultNamespace( new DefaultNameParser() );
-        return new MemoryContext( namespace, new Hashtable(), null );
-    }
+  /**
+   * Method to create the inital {@link MemoryContext}.
+   *
+   * @return the new {@link MemoryContext}.
+   */
+  private static MemoryContext createMemoryContext()
+  {
+    final DefaultNamespace namespace = new DefaultNamespace( new DefaultNameParser() );
+    return new MemoryContext( namespace, new Hashtable(), null );
+  }
 }
 

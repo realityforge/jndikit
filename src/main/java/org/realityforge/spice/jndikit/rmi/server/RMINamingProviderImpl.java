@@ -24,153 +24,153 @@ import org.realityforge.spice.jndikit.rmi.RMINamingProvider;
  * The RMI implementation of provider.
  */
 public class RMINamingProviderImpl
-    implements Serializable, RMINamingProvider
+  implements Serializable, RMINamingProvider
 {
-    private Context m_root;
+  private Context m_root;
 
-    public RMINamingProviderImpl( final Context root )
+  public RMINamingProviderImpl( final Context root )
+  {
+    m_root = root;
+  }
+
+  public NameParser getNameParser()
+    throws NamingException
+  {
+    return m_root.getNameParser( new CompositeName() );
+  }
+
+  public void bind( final Name name, final String className, final Object object )
+    throws NamingException
+  {
+    final Binding binding = new Binding( name.toString(), className, object, true );
+    m_root.bind( name, binding );
+  }
+
+  public void rebind( final Name name, final String className, final Object object )
+    throws NamingException
+  {
+    final Binding binding = new Binding( name.toString(), className, object, true );
+    m_root.rebind( name, binding );
+  }
+
+  public Context createSubcontext( final Name name )
+    throws NamingException
+  {
+    m_root.createSubcontext( name );
+
+    final RemoteContext context = new RemoteContext( null, name );
+    return context;
+  }
+
+  public void destroySubcontext( final Name name )
+    throws NamingException
+  {
+    m_root.destroySubcontext( name );
+  }
+
+  public NameClassPair[] list( final Name name )
+    throws NamingException
+  {
+    //Remember that the bindings returned by this
+    //actually have a nested Binding as an object
+    final NamingEnumeration enumeration = m_root.listBindings( name );
+    final ArrayList pairs = new ArrayList();
+
+    while ( enumeration.hasMore() )
     {
-        m_root = root;
+      final Binding binding = (Binding) enumeration.next();
+      final Object object = binding.getObject();
+
+      String className = null;
+
+      //check if it is an entry or a context
+      if ( object instanceof Binding )
+      {
+        //must be an entry
+        final Binding entry = (Binding) binding.getObject();
+        className = entry.getObject().getClass().getName();
+      }
+      else if ( object instanceof Context )
+      {
+        //must be a context
+        className = RemoteContext.class.getName();
+      }
+      else
+      {
+        className = object.getClass().getName();
+      }
+
+      pairs.add( new NameClassPair( binding.getName(), className ) );
     }
 
-    public NameParser getNameParser()
-        throws NamingException
+    return (NameClassPair[]) pairs.toArray( new NameClassPair[ 0 ] );
+  }
+
+  public Binding[] listBindings( final Name name )
+    throws NamingException
+  {
+    //Remember that the bindings returned by this
+    //actually have a nested Binding as an object
+    final NamingEnumeration enumeration = m_root.listBindings( name );
+    final ArrayList bindings = new ArrayList();
+
+    while ( enumeration.hasMore() )
     {
-        return m_root.getNameParser( new CompositeName() );
+      final Binding binding = (Binding) enumeration.next();
+      Object object = binding.getObject();
+      String className = null;
+
+      //check if it is an entry or a context
+      if ( object instanceof Binding )
+      {
+        //must be an entry
+        final Binding entry = (Binding) binding.getObject();
+        object = entry.getObject();
+        className = object.getClass().getName();
+      }
+      else if ( object instanceof Context )
+      {
+        //must be a context
+        className = RemoteContext.class.getName();
+        final Name bindingName = getNameParser().parse( binding.getName() );
+        final Name baseName = m_root.composeName( bindingName, name );
+        object = new RemoteContext( null, baseName );
+      }
+      else
+      {
+        className = object.getClass().getName();
+      }
+
+      final Binding result =
+        new Binding( binding.getName(), className, object );
+      bindings.add( result );
     }
 
-    public void bind( final Name name, final String className, final Object object )
-        throws NamingException
+    return (Binding[]) bindings.toArray( new Binding[ 0 ] );
+  }
+
+  public Object lookup( final Name name )
+    throws NamingException
+  {
+    Object object = m_root.lookup( name );
+
+    //check if it is an entry or a context
+    if ( object instanceof Binding )
     {
-        final Binding binding = new Binding( name.toString(), className, object, true );
-        m_root.bind( name, binding );
+      object = ( (Binding) object ).getObject();
+    }
+    else if ( object instanceof Context )
+    {
+      //must be a context
+      object = new RemoteContext( null, name );
     }
 
-    public void rebind( final Name name, final String className, final Object object )
-        throws NamingException
-    {
-        final Binding binding = new Binding( name.toString(), className, object, true );
-        m_root.rebind( name, binding );
-    }
+    return object;
+  }
 
-    public Context createSubcontext( final Name name )
-        throws NamingException
-    {
-        m_root.createSubcontext( name );
-
-        final RemoteContext context = new RemoteContext( null, name );
-        return context;
-    }
-
-    public void destroySubcontext( final Name name )
-        throws NamingException
-    {
-        m_root.destroySubcontext( name );
-    }
-
-    public NameClassPair[] list( final Name name )
-        throws NamingException
-    {
-        //Remember that the bindings returned by this
-        //actually have a nested Binding as an object
-        final NamingEnumeration enumeration = m_root.listBindings( name );
-        final ArrayList pairs = new ArrayList();
-
-        while( enumeration.hasMore() )
-        {
-            final Binding binding = (Binding)enumeration.next();
-            final Object object = binding.getObject();
-
-            String className = null;
-
-            //check if it is an entry or a context
-            if( object instanceof Binding )
-            {
-                //must be an entry
-                final Binding entry = (Binding)binding.getObject();
-                className = entry.getObject().getClass().getName();
-            }
-            else if( object instanceof Context )
-            {
-                //must be a context
-                className = RemoteContext.class.getName();
-            }
-            else
-            {
-                className = object.getClass().getName();
-            }
-
-            pairs.add( new NameClassPair( binding.getName(), className ) );
-        }
-
-        return (NameClassPair[])pairs.toArray( new NameClassPair[ 0 ] );
-    }
-
-    public Binding[] listBindings( final Name name )
-        throws NamingException
-    {
-        //Remember that the bindings returned by this
-        //actually have a nested Binding as an object
-        final NamingEnumeration enumeration = m_root.listBindings( name );
-        final ArrayList bindings = new ArrayList();
-
-        while( enumeration.hasMore() )
-        {
-            final Binding binding = (Binding)enumeration.next();
-            Object object = binding.getObject();
-            String className = null;
-
-            //check if it is an entry or a context
-            if( object instanceof Binding )
-            {
-                //must be an entry
-                final Binding entry = (Binding)binding.getObject();
-                object = entry.getObject();
-                className = object.getClass().getName();
-            }
-            else if( object instanceof Context )
-            {
-                //must be a context
-                className = RemoteContext.class.getName();
-                final Name bindingName = getNameParser().parse(binding.getName());
-                final Name baseName = m_root.composeName(bindingName, name);
-                object = new RemoteContext( null, baseName);
-            }
-            else
-            {
-                className = object.getClass().getName();
-            }
-
-            final Binding result =
-                new Binding( binding.getName(), className, object );
-            bindings.add( result );
-        }
-
-        return (Binding[])bindings.toArray( new Binding[ 0 ] );
-    }
-
-    public Object lookup( final Name name )
-        throws NamingException
-    {
-        Object object = m_root.lookup( name );
-
-        //check if it is an entry or a context
-        if( object instanceof Binding )
-        {
-            object = ( (Binding)object ).getObject();
-        }
-        else if( object instanceof Context )
-        {
-            //must be a context
-            object = new RemoteContext( null, name);
-        }
-
-        return object;
-    }
-
-    public void unbind( final Name name )
-        throws NamingException
-    {
-        m_root.unbind( name );
-    }
+  public void unbind( final Name name )
+    throws NamingException
+  {
+    m_root.unbind( name );
+  }
 }

@@ -9,7 +9,6 @@ package org.realityforge.spice.jndikit.rmi.test;
 
 import java.util.Hashtable;
 import javax.naming.NamingException;
-
 import org.realityforge.spice.jndikit.DefaultNamespace;
 import org.realityforge.spice.jndikit.Namespace;
 import org.realityforge.spice.jndikit.rmi.RMIInitialContextFactory;
@@ -20,26 +19,26 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
  * Unit test for RMI context, using the {@link DefaultNamespace}.
  */
 public class RMIContextDefaultNamespaceTestCase
-    extends AbstractRMIContextTestCase
+  extends AbstractRMIContextTestCase
 {
 
-    public RMIContextDefaultNamespaceTestCase()
-    {
-        super( new DefaultNamespaceICF() );
-    }
+  public RMIContextDefaultNamespaceTestCase()
+  {
+    super( new DefaultNamespaceICF() );
+  }
 
-    static class DefaultNamespaceICF
-        extends RMIInitialContextFactory
-    {
+  static class DefaultNamespaceICF
+    extends RMIInitialContextFactory
+  {
 
-        protected Namespace newNamespace( final Hashtable environment )
-            throws NamingException
-        {
-            final DefaultNamespace namespace = ( DefaultNamespace ) super.newNamespace(
-                environment );
-            namespace.addObjectFactory( new TestObjectFactory() );
-            namespace.addStateFactory( new TestStateFactory() );
-            return namespace;
-        }
+    protected Namespace newNamespace( final Hashtable environment )
+      throws NamingException
+    {
+      final DefaultNamespace namespace = (DefaultNamespace) super.newNamespace(
+        environment );
+      namespace.addObjectFactory( new TestObjectFactory() );
+      namespace.addStateFactory( new TestStateFactory() );
+      return namespace;
     }
+  }
 }

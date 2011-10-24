@@ -11,7 +11,6 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.ServiceUnavailableException;
-
 import org.realityforge.spice.jndikit.Namespace;
 import org.realityforge.spice.jndikit.NamingProvider;
 import org.realityforge.spice.jndikit.RemoteContext;
@@ -23,49 +22,50 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
  * Unit test for RMI context.
  */
 public class RMIContextTestCase
-    extends AbstractRMIContextTestCase
+  extends AbstractRMIContextTestCase
 {
-    public RMIContextTestCase()
+  public RMIContextTestCase()
+  {
+    super( new StandardNamespaceICF() );
+  }
+
+  static class StandardNamespaceICF
+    extends RMIInitialContextFactory
+  {
+
+    public Context getInitialContext( Hashtable environment )
+      throws NamingException
     {
-        super( new StandardNamespaceICF() );
+      environment.put( Context.STATE_FACTORIES,
+                       TestStateFactory.class.getName() );
+      return super.getInitialContext( environment );
     }
 
-    static class StandardNamespaceICF extends RMIInitialContextFactory
+    protected Namespace newNamespace( final Hashtable environment )
+      throws NamingException
     {
+      try
+      {
+        final NamingProvider provider =
+          (NamingProvider) environment.get(
+            RemoteContext.NAMING_PROVIDER );
 
-        public Context getInitialContext( Hashtable environment )
-            throws NamingException
+        return new StandardNamespace( provider.getNameParser() );
+      }
+      catch ( final Exception e )
+      {
+        if ( e instanceof NamingException )
         {
-            environment.put( Context.STATE_FACTORIES,
-                             TestStateFactory.class.getName() );
-            return super.getInitialContext( environment );
+          throw (NamingException) e;
         }
-
-        protected Namespace newNamespace( final Hashtable environment )
-            throws NamingException
+        else
         {
-            try
-            {
-                final NamingProvider provider =
-                    ( NamingProvider ) environment.get(
-                        RemoteContext.NAMING_PROVIDER );
-
-                return new StandardNamespace( provider.getNameParser() );
-            }
-            catch( final Exception e )
-            {
-                if( e instanceof NamingException )
-                {
-                    throw ( NamingException ) e;
-                }
-                else
-                {
-                    final ServiceUnavailableException sue =
-                        new ServiceUnavailableException( e.getMessage() );
-                    sue.setRootCause( e );
-                    throw sue;
-                }
-            }
+          final ServiceUnavailableException sue =
+            new ServiceUnavailableException( e.getMessage() );
+          sue.setRootCause( e );
+          throw sue;
         }
+      }
     }
+  }
 }

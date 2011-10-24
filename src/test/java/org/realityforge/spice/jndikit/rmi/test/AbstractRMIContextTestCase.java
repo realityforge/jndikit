@@ -9,71 +9,78 @@ package org.realityforge.spice.jndikit.rmi.test;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
-
+import junit.framework.AssertionFailedError;
 import org.realityforge.spice.jndikit.rmi.RMIInitialContextFactory;
 import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
-import junit.framework.AssertionFailedError;
 
 /**
  * Unit test for RMI context.
  */
 public abstract class AbstractRMIContextTestCase
-    extends AbstractContextTestCase
+  extends AbstractContextTestCase
 {
 
-    private final RMITestSetup _helper;
+  private final RMITestSetup _helper;
 
-    public AbstractRMIContextTestCase( RMIInitialContextFactory factory )
+  public AbstractRMIContextTestCase( RMIInitialContextFactory factory )
+  {
+    _helper = new RMITestSetup( factory );
+  }
+
+  public void testGetNameInNamespace()
+    throws AssertionFailedError
+  {
+    try
     {
-        _helper = new RMITestSetup( factory );
+      Context sub1 = m_root.createSubcontext( "sub1" );
+      Context sub2 = sub1.createSubcontext( "sub2" );
+      Context sub3 = sub2.createSubcontext( "sub3" );
+      Context sub4 = sub3.createSubcontext( "sub4" );
+      assertEquals( "sub1/sub2/sub3/sub4", sub4.getNameInNamespace() );
     }
-
-    public void testGetNameInNamespace() throws AssertionFailedError
+    catch ( final NamingException ne )
     {
-        try
-        {
-            Context sub1 = m_root.createSubcontext( "sub1");
-            Context sub2 = sub1.createSubcontext( "sub2");
-            Context sub3 = sub2.createSubcontext( "sub3");
-            Context sub4 = sub3.createSubcontext( "sub4");
-            assertEquals("sub1/sub2/sub3/sub4", sub4.getNameInNamespace());
-        }
-        catch( final NamingException ne )
-        {
-            throw new AssertionFailedError( ne.getMessage() );
-        }
+      throw new AssertionFailedError( ne.getMessage() );
     }
+  }
 
-    /**
-     * Verifies that non-Serializable and non-Referenceable objects cannot be
-     * bound.
-     *
-     * @throws AssertionFailedError if the test fails
-     */
-    public void testInvalidBind() throws AssertionFailedError {
-        try
-        {
-            m_context.bind("invalid", new Object());
-            fail("Expected bind of non-Serializable, non-Referenceable object to throw NamingException");
-        } catch (final NamingException expected) {
-        }
-    }
-
-    protected void setUp() throws Exception
+  /**
+   * Verifies that non-Serializable and non-Referenceable objects cannot be
+   * bound.
+   *
+   * @throws AssertionFailedError if the test fails
+   */
+  public void testInvalidBind()
+    throws AssertionFailedError
+  {
+    try
     {
-        _helper.setUp();
-        super.setUp();
+      m_context.bind( "invalid", new Object() );
+      fail( "Expected bind of non-Serializable, non-Referenceable object to throw NamingException" );
     }
-
-    protected void tearDown() throws Exception
+    catch ( final NamingException expected )
     {
-        _helper.tearDown();
-        super.tearDown();
     }
+  }
 
-    protected Context getRoot() throws Exception
-    {
-        return _helper.getRoot();
-    }
+  protected void setUp()
+    throws Exception
+  {
+    _helper.setUp();
+    super.setUp();
+  }
+
+  protected void tearDown()
+    throws Exception
+  {
+    _helper.tearDown();
+    super.tearDown();
+  }
+
+  protected Context getRoot()
+    throws Exception
+  {
+    return _helper.getRoot();
+  }
 
 }

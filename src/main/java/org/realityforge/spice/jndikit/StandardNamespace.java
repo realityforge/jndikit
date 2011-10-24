@@ -18,40 +18,40 @@ import javax.naming.spi.NamingManager;
  * Namespace that directly uses NamingManager.
  */
 public class StandardNamespace
-    implements Namespace
+  implements Namespace
 {
-    private NameParser m_nameParser;
+  private NameParser m_nameParser;
 
-    /**
-     * Construct a Namespace with specified NameParser.
-     *
-     * @param nameParser the NameParser for Namespace
-     */
-    public StandardNamespace( final NameParser nameParser )
-    {
-        m_nameParser = nameParser;
-    }
+  /**
+   * Construct a Namespace with specified NameParser.
+   *
+   * @param nameParser the NameParser for Namespace
+   */
+  public StandardNamespace( final NameParser nameParser )
+  {
+    m_nameParser = nameParser;
+  }
 
-    public NameParser getNameParser()
-    {
-        return m_nameParser;
-    }
+  public NameParser getNameParser()
+  {
+    return m_nameParser;
+  }
 
-    public Object getStateToBind( final Object object,
-                                  final Name name,
-                                  final Context parent,
-                                  final Hashtable environment )
-        throws NamingException
-    {
-        return NamingManager.getStateToBind( object, name, parent, environment );
-    }
+  public Object getStateToBind( final Object object,
+                                final Name name,
+                                final Context parent,
+                                final Hashtable environment )
+    throws NamingException
+  {
+    return NamingManager.getStateToBind( object, name, parent, environment );
+  }
 
-    public Object getObjectInstance( final Object object,
-                                     final Name name,
-                                     final Context parent,
-                                     final Hashtable environment )
-        throws Exception
-    {
-        return NamingManager.getObjectInstance( object, name, parent, environment );
-    }
+  public Object getObjectInstance( final Object object,
+                                   final Name name,
+                                   final Context parent,
+                                   final Hashtable environment )
+    throws Exception
+  {
+    return NamingManager.getObjectInstance( object, name, parent, environment );
+  }
 }

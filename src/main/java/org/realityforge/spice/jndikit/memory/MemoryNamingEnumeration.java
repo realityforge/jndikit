@@ -21,52 +21,52 @@ import org.realityforge.spice.jndikit.Namespace;
  * Class for building NamingEnumerations.
  */
 final class MemoryNamingEnumeration
-    extends AbstractNamingEnumeration
+  extends AbstractNamingEnumeration
 {
-    protected Hashtable m_bindings;
-    protected Iterator m_names;
-    protected boolean m_returnBindings;
+  protected Hashtable m_bindings;
+  protected Iterator m_names;
+  protected boolean m_returnBindings;
 
-    public MemoryNamingEnumeration( final Context owner,
-                                    final Namespace namespace,
-                                    final Hashtable bindings,
-                                    final boolean returnBindings )
+  public MemoryNamingEnumeration( final Context owner,
+                                  final Namespace namespace,
+                                  final Hashtable bindings,
+                                  final boolean returnBindings )
+  {
+    super( owner, namespace );
+    m_returnBindings = returnBindings;
+    m_bindings = bindings;
+    m_names = m_bindings.keySet().iterator();
+  }
+
+  public boolean hasMoreElements()
+  {
+    return m_names.hasNext();
+  }
+
+  public Object next()
+    throws NamingException
+  {
+    if ( !hasMore() )
     {
-        super( owner, namespace );
-        m_returnBindings = returnBindings;
-        m_bindings = bindings;
-        m_names = m_bindings.keySet().iterator();
+      throw new NoSuchElementException();
     }
 
-    public boolean hasMoreElements()
+    final String name = (String) m_names.next();
+    Object object = m_bindings.get( name );
+
+    if ( !m_returnBindings )
     {
-        return m_names.hasNext();
+      return new NameClassPair( name, object.getClass().getName() );
     }
-
-    public Object next()
-        throws NamingException
+    else
     {
-        if( !hasMore() )
-        {
-            throw new NoSuchElementException();
-        }
-
-        final String name = (String)m_names.next();
-        Object object = m_bindings.get( name );
-
-        if( !m_returnBindings )
-        {
-            return new NameClassPair( name, object.getClass().getName() );
-        }
-        else
-        {
-            return new Binding( name, resolve( name, object ) );
-        }
+      return new Binding( name, resolve( name, object ) );
     }
+  }
 
-    public void close()
-    {
-        super.close();
-        m_bindings = null;
-    }
+  public void close()
+  {
+    super.close();
+    m_bindings = null;
+  }
 }

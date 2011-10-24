@@ -20,51 +20,53 @@ import javax.naming.spi.ObjectFactory;
  *
  * @see TestDataReferenceable
  */
-public class TestObjectFactory implements ObjectFactory
+public class TestObjectFactory
+  implements ObjectFactory
 {
 
-    /**
-     * Creates an object using the location or reference information specified.
-     *
-     * @param obj         The possibly null object containing location or
-     *                    reference information that can be used in creating an
-     *                    object.
-     * @param name        The name of this object relative to <code>nameCtx</code>,
-     *                    or null if no name is specified.
-     * @param nameCtx     The context relative to which the <code>name</code>
-     *                    parameter is specified, or null if <code>name</code>
-     *                    is relative to the default initial context.
-     * @param environment The possibly null environment that is used in creating
-     *                    the object.
-     * @return The object created; null if an object cannot be created.
-     * @throws Exception if this object factory encountered an exception while
-     *                   attempting to create an object, and no other object
-     *                   factories are to be tried.
-     */
-    public Object getObjectInstance( Object obj, Name name, Context nameCtx,
-                                     Hashtable environment ) throws Exception
+  /**
+   * Creates an object using the location or reference information specified.
+   *
+   * @param obj         The possibly null object containing location or
+   *                    reference information that can be used in creating an
+   *                    object.
+   * @param name        The name of this object relative to <code>nameCtx</code>,
+   *                    or null if no name is specified.
+   * @param nameCtx     The context relative to which the <code>name</code>
+   *                    parameter is specified, or null if <code>name</code>
+   *                    is relative to the default initial context.
+   * @param environment The possibly null environment that is used in creating
+   *                    the object.
+   * @return The object created; null if an object cannot be created.
+   * @throws Exception if this object factory encountered an exception while
+   *                   attempting to create an object, and no other object
+   *                   factories are to be tried.
+   */
+  public Object getObjectInstance( Object obj, Name name, Context nameCtx,
+                                   Hashtable environment )
+    throws Exception
+  {
+    Object result = null;
+    if ( obj instanceof Reference )
     {
-        Object result = null;
-        if( obj instanceof Reference )
+      Reference ref = (Reference) obj;
+      String clazz = ref.getClassName();
+      if ( clazz.equals( TestDataReferenceable.class.getName() ) )
+      {
+        String value = null;
+        StringRefAddr str = (StringRefAddr) ref.get( "value" );
+        if ( str != null )
         {
-            Reference ref = ( Reference ) obj;
-            String clazz = ref.getClassName();
-            if( clazz.equals( TestDataReferenceable.class.getName() ) )
-            {
-                String value = null;
-                StringRefAddr str = ( StringRefAddr ) ref.get( "value" );
-                if( str != null )
-                {
-                    value = ( String ) str.getContent();
-                }
-                result = new TestDataReferenceable( value );
-            }
-            else if( clazz.equals( ExceptionReferenceable.class.getName() ) )
-            {
-                throw new Exception( "Encountered " + clazz );
-            }
+          value = (String) str.getContent();
         }
-        return result;
+        result = new TestDataReferenceable( value );
+      }
+      else if ( clazz.equals( ExceptionReferenceable.class.getName() ) )
+      {
+        throw new Exception( "Encountered " + clazz );
+      }
     }
+    return result;
+  }
 
 }

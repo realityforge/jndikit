@@ -9,7 +9,6 @@ package org.realityforge.spice.jndikit.memory.test;
 
 import java.util.Hashtable;
 import javax.naming.Context;
-
 import org.realityforge.spice.jndikit.DefaultNameParser;
 import org.realityforge.spice.jndikit.Namespace;
 import org.realityforge.spice.jndikit.StandardNamespace;
@@ -20,17 +19,18 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
  * Unit test for Memory context, using the {@link StandardNamespace}.
  */
 public class MemoryContextTestCase
-    extends AbstractMemoryContextTestCase
+  extends AbstractMemoryContextTestCase
 {
 
-    protected Context getRoot() throws Exception
-    {
-        final DefaultNameParser parser = new DefaultNameParser();
-        final Namespace namespace = new StandardNamespace( parser );
+  protected Context getRoot()
+    throws Exception
+  {
+    final DefaultNameParser parser = new DefaultNameParser();
+    final Namespace namespace = new StandardNamespace( parser );
 
-        Hashtable environment = new Hashtable();
-        environment.put( Context.STATE_FACTORIES, TestStateFactory.class.getName() );
+    Hashtable environment = new Hashtable();
+    environment.put( Context.STATE_FACTORIES, TestStateFactory.class.getName() );
 
-        return new MemoryContext( namespace, environment, null );
-    }
+    return new MemoryContext( namespace, environment, null );
+  }
 }

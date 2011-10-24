@@ -16,48 +16,48 @@ import javax.naming.NamingException;
  * Class for building NamingEnumerations.
  */
 final class ArrayNamingEnumeration
-    extends AbstractNamingEnumeration
+  extends AbstractNamingEnumeration
 {
-    protected Object[] m_items;
-    protected int m_index;
+  protected Object[] m_items;
+  protected int m_index;
 
-    public ArrayNamingEnumeration( final Context owner,
-                                   final Namespace namespace,
-                                   final Object[] items )
+  public ArrayNamingEnumeration( final Context owner,
+                                 final Namespace namespace,
+                                 final Object[] items )
+  {
+    super( owner, namespace );
+    m_items = items;
+    //m_index = 0;
+  }
+
+  public boolean hasMoreElements()
+  {
+    return m_index < m_items.length;
+  }
+
+  public Object next()
+    throws NamingException
+  {
+    if ( !hasMore() )
     {
-        super( owner, namespace );
-        m_items = items;
-        //m_index = 0;
+      throw new NoSuchElementException();
     }
 
-    public boolean hasMoreElements()
+    final Object object = m_items[ m_index++ ];
+
+    if ( object instanceof Binding )
     {
-        return m_index < m_items.length;
+      final Binding binding = (Binding) object;
+      final Object resolvedObject = resolve( binding.getName(), binding.getObject() );
+      binding.setObject( resolvedObject );
     }
 
-    public Object next()
-        throws NamingException
-    {
-        if( !hasMore() )
-        {
-            throw new NoSuchElementException();
-        }
+    return object;
+  }
 
-        final Object object = m_items[ m_index++ ];
-
-        if( object instanceof Binding )
-        {
-            final Binding binding = (Binding)object;
-            final Object resolvedObject = resolve( binding.getName(), binding.getObject() );
-            binding.setObject( resolvedObject );
-        }
-
-        return object;
-    }
-
-    public void close()
-    {
-        super.close();
-        m_items = null;
-    }
+  public void close()
+  {
+    super.close();
+    m_items = null;
+  }
 }

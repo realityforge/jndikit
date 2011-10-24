@@ -18,50 +18,52 @@ import javax.naming.StringRefAddr;
  *
  * @see TestObjectFactory
  */
-public class TestDataReferenceable extends TestData implements Referenceable
+public class TestDataReferenceable
+  extends TestData
+  implements Referenceable
 {
 
 
-    /**
-     * Default ctor for serialization.
-     */
-    public TestDataReferenceable()
-    {
-    }
+  /**
+   * Default ctor for serialization.
+   */
+  public TestDataReferenceable()
+  {
+  }
 
-    /**
-     * Construct a new <code>TestDataReferenceable</code>.
-     *
-     * @param value test data
-     */
-    public TestDataReferenceable( String value )
-    {
-        super( value );
-    }
+  /**
+   * Construct a new <code>TestDataReferenceable</code>.
+   *
+   * @param value test data
+   */
+  public TestDataReferenceable( String value )
+  {
+    super( value );
+  }
 
-    /**
-     * Retrieves the Reference of this object.
-     *
-     * @return the non-null Reference of this object.
-     */
-    public Reference getReference()
-    {
-        return new Reference( getClass().getName(),
-                              new StringRefAddr( "value", getValue() ),
-                              TestObjectFactory.class.getName(),
-                              null );
-    }
+  /**
+   * Retrieves the Reference of this object.
+   *
+   * @return the non-null Reference of this object.
+   */
+  public Reference getReference()
+  {
+    return new Reference( getClass().getName(),
+                          new StringRefAddr( "value", getValue() ),
+                          TestObjectFactory.class.getName(),
+                          null );
+  }
 
-    private void writeObject( java.io.ObjectOutputStream out )
-        throws IOException
-    {
-        throw new IOException( "Cannot serialize. Use getReference() instead" );
-    }
+  private void writeObject( java.io.ObjectOutputStream out )
+    throws IOException
+  {
+    throw new IOException( "Cannot serialize. Use getReference() instead" );
+  }
 
-    private void readObject( java.io.ObjectInputStream in )
-        throws IOException
-    {
-        throw new IOException( "Cannot serialize. Use getReference() instead" );
-    }
+  private void readObject( java.io.ObjectInputStream in )
+    throws IOException
+  {
+    throw new IOException( "Cannot serialize. Use getReference() instead" );
+  }
 
 }

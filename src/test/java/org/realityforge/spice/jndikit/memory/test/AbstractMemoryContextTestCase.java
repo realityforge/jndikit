@@ -9,7 +9,6 @@ package org.realityforge.spice.jndikit.memory.test;
 
 import javax.naming.NamingException;
 import javax.naming.OperationNotSupportedException;
-
 import junit.framework.AssertionFailedError;
 import org.realityforge.spice.jndikit.StandardNamespace;
 import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
@@ -18,22 +17,23 @@ import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
  * Unit test for Memory context, using the {@link StandardNamespace}.
  */
 public abstract class AbstractMemoryContextTestCase
-    extends AbstractContextTestCase
+  extends AbstractContextTestCase
 {
 
-    public void testGetNameInNamespace() throws AssertionFailedError
+  public void testGetNameInNamespace()
+    throws AssertionFailedError
+  {
+    try
     {
-        try
-        {
-            String name = m_context.getNameInNamespace();
-            fail( "Expected getNameInNamespace to throw OperationNotSupportedException but returned " + name );
-        }
-        catch( final OperationNotSupportedException expected )
-        {
-        }
-        catch( final NamingException ne )
-        {
-            throw new AssertionFailedError( ne.getMessage() );
-        }
+      String name = m_context.getNameInNamespace();
+      fail( "Expected getNameInNamespace to throw OperationNotSupportedException but returned " + name );
     }
+    catch ( final OperationNotSupportedException expected )
+    {
+    }
+    catch ( final NamingException ne )
+    {
+      throw new AssertionFailedError( ne.getMessage() );
+    }
+  }
 }

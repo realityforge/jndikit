@@ -15,38 +15,38 @@ import javax.naming.spi.StateFactory;
  * This is the default namespace implementation.
  */
 public class DefaultNamespace
-    extends AbstractNamespace
+  extends AbstractNamespace
 {
-    private NameParser m_nameParser;
+  private NameParser m_nameParser;
 
-    public DefaultNamespace( final NameParser nameParser )
-    {
-        this( nameParser,
-              new ObjectFactory[ 0 ],
-              new StateFactory[ 0 ] );
-    }
+  public DefaultNamespace( final NameParser nameParser )
+  {
+    this( nameParser,
+          new ObjectFactory[ 0 ],
+          new StateFactory[ 0 ] );
+  }
 
-    public DefaultNamespace( final NameParser nameParser,
-                             final ObjectFactory[] objectFactorySet,
-                             final StateFactory[] stateFactorySet )
-    {
-        m_nameParser = nameParser;
-        m_objectFactorySet = objectFactorySet;
-        m_stateFactorySet = stateFactorySet;
-    }
+  public DefaultNamespace( final NameParser nameParser,
+                           final ObjectFactory[] objectFactorySet,
+                           final StateFactory[] stateFactorySet )
+  {
+    m_nameParser = nameParser;
+    m_objectFactorySet = objectFactorySet;
+    m_stateFactorySet = stateFactorySet;
+  }
 
-    public NameParser getNameParser()
-    {
-        return m_nameParser;
-    }
+  public NameParser getNameParser()
+  {
+    return m_nameParser;
+  }
 
-    public synchronized void addStateFactory( final StateFactory stateFactory )
-    {
-        super.addStateFactory( stateFactory );
-    }
+  public synchronized void addStateFactory( final StateFactory stateFactory )
+  {
+    super.addStateFactory( stateFactory );
+  }
 
-    public synchronized void addObjectFactory( final ObjectFactory objectFactory )
-    {
-        super.addObjectFactory( objectFactory );
-    }
+  public synchronized void addObjectFactory( final ObjectFactory objectFactory )
+  {
+    super.addObjectFactory( objectFactory );
+  }
 }
