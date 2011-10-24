@@ -1,6 +1,6 @@
 require 'buildr/java/emma'
 
-desc "Replicant: Client-side state representation infrastructure"
+desc "JNDI Kit: a toolkit designed to help with the construction of JNDI providers"
 define('jndikit') do
   project.version = `git describe --tags`.strip
   project.group = 'org.realityforge'
