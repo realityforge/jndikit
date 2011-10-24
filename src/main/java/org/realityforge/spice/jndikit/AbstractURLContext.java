@@ -8,18 +8,19 @@
 package org.realityforge.spice.jndikit;
 
 import java.util.Hashtable;
+import javax.naming.Binding;
 import javax.naming.CompositeName;
 import javax.naming.Context;
 import javax.naming.InvalidNameException;
 import javax.naming.Name;
+import javax.naming.NameClassPair;
 import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.spi.ResolveResult;
 
 /**
- * Abstract JNDI Context that can be inherited from to
- * provide a particular type of Context.
+ * Abstract JNDI Context that can be inherited from to provide a particular type of Context.
  */
 public abstract class AbstractURLContext
   extends AbstractContext
@@ -27,18 +28,24 @@ public abstract class AbstractURLContext
 {
   private final String m_scheme;
 
-  public AbstractURLContext( final String scheme, final Hashtable environment )
+  public AbstractURLContext( final String scheme, final Hashtable<String, Object> environment )
   {
     super( environment );
     m_scheme = scheme;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public Name parse( final String name )
     throws NamingException
   {
     return ( new CompositeName().add( name ) );
   }
 
+  /**
+   * {@inheritDoc}
+   */
   protected NameParser getNameParser()
     throws NamingException
   {
@@ -46,7 +53,7 @@ public abstract class AbstractURLContext
   }
 
   /**
-   * Helper method to bind
+   * {@inheritDoc}
    */
   protected void bind( final Name name, final Object object, final boolean rebind )
     throws NamingException
@@ -72,12 +79,7 @@ public abstract class AbstractURLContext
   }
 
   /**
-   * Create a Subcontext.
-   *
-   * @param name the name of subcontext
-   * @return the created context
-   * @throws NamingException if an error occurs (ie context
-   *                         exists, badly formated name etc)
+   * {@inheritDoc}
    */
   public Context createSubcontext( final Name name )
     throws NamingException
@@ -95,12 +97,14 @@ public abstract class AbstractURLContext
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void destroySubcontext( final Name name )
     throws NamingException
   {
     final ResolveResult resolveResult = getBaseURLContext( name, getRawEnvironment() );
     final Context context = (Context) resolveResult.getResolvedObj();
-
     try
     {
       context.destroySubcontext( resolveResult.getRemainingName() );
@@ -111,6 +115,9 @@ public abstract class AbstractURLContext
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public String getNameInNamespace()
     throws NamingException
   {
@@ -118,13 +125,9 @@ public abstract class AbstractURLContext
   }
 
   /**
-   * Enumerates the names bound in the named context.
-   *
-   * @param name the name of the context
-   * @return the enumeration
-   * @throws javax.naming.NamingException if an error occurs
+   * {@inheritDoc}
    */
-  public NamingEnumeration list( final Name name )
+  public NamingEnumeration<NameClassPair> list( final Name name )
     throws NamingException
   {
     final ResolveResult resolveResult = getBaseURLContext( name, getRawEnvironment() );
@@ -141,13 +144,9 @@ public abstract class AbstractURLContext
   }
 
   /**
-   * Enumerates the names bound in the named context, along with the objects bound to them.
-   *
-   * @param name the name of the context
-   * @return the enumeration
-   * @throws javax.naming.NamingException if an error occurs
+   * {@inheritDoc}
    */
-  public NamingEnumeration listBindings( final Name name )
+  public NamingEnumeration<Binding> listBindings( final Name name )
     throws NamingException
   {
     final ResolveResult resolveResult = getBaseURLContext( name, getRawEnvironment() );
@@ -164,12 +163,7 @@ public abstract class AbstractURLContext
   }
 
   /**
-   * Get the object named.
-   *
-   * @param name the name
-   * @return the object
-   * @throws NamingException if an error occurs (ie object
-   *                         name is inavlid or unbound)
+   * {@inheritDoc}
    */
   public Object lookup( final Name name )
     throws NamingException
@@ -188,10 +182,7 @@ public abstract class AbstractURLContext
   }
 
   /**
-   * Unbind a object from a name.
-   *
-   * @param name the name
-   * @throws javax.naming.NamingException if an error occurs
+   * {@inheritDoc}
    */
   public void unbind( final Name name )
     throws NamingException
@@ -222,8 +213,7 @@ public abstract class AbstractURLContext
 
     if ( -1 == index )
     {
-      final String explanation =
-        "Unable to build URLContext as it does not specify scheme";
+      final String explanation = "Unable to build URLContext as it does not specify scheme";
       throw new InvalidNameException( explanation );
     }
 
@@ -234,9 +224,7 @@ public abstract class AbstractURLContext
 
     if ( !m_scheme.equals( scheme ) )
     {
-      final String explanation =
-        "Bad Scheme use to build URLContext (" +
-        scheme + "). " + "Expected " + m_scheme;
+      final String explanation = "Bad Scheme use to build URLContext (" + scheme + "). " + "Expected " + m_scheme;
       throw new InvalidNameException( explanation );
     }
 
@@ -256,7 +244,7 @@ public abstract class AbstractURLContext
    * @param name  the name
    * @param index the index where "scheme:" ends
    * @return the index where url ends
-   * @throws javax.naming.NamingException if an error occurs
+   * @throws NamingException if an error occurs
    */
   protected int getEndIndexOfURLPart( final String name, final int index )
     throws NamingException
