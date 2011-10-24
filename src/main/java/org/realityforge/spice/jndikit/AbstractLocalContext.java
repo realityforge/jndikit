@@ -8,11 +8,13 @@
 package org.realityforge.spice.jndikit;
 
 import java.util.Hashtable;
+import javax.naming.Binding;
 import javax.naming.Context;
 import javax.naming.ContextNotEmptyException;
 import javax.naming.InvalidNameException;
 import javax.naming.Name;
 import javax.naming.NameAlreadyBoundException;
+import javax.naming.NameClassPair;
 import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -32,7 +34,7 @@ public abstract class AbstractLocalContext
   private Namespace m_namespace;
 
   public AbstractLocalContext( final Namespace namespace,
-                               final Hashtable environment,
+                               final Hashtable<String, Object> environment,
                                final Context parent )
   {
     super( environment );
@@ -138,12 +140,7 @@ public abstract class AbstractLocalContext
   }
 
   /**
-   * Create a Subcontext.
-   *
-   * @param name the name of subcontext
-   * @return the created context
-   * @throws NamingException if an error occurs
-   *                         (ie context exists, badly formated name etc)
+   * {@inheritDoc}
    */
   public Context createSubcontext( final Name name )
     throws NamingException
@@ -153,6 +150,9 @@ public abstract class AbstractLocalContext
     return context;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void destroySubcontext( final Name name )
     throws NamingException
   {
@@ -163,7 +163,7 @@ public abstract class AbstractLocalContext
 
     if ( 1 == name.size() )
     {
-      Object object = null;
+      Object object;
       try
       {
         object = localLookup( name );
@@ -181,7 +181,7 @@ public abstract class AbstractLocalContext
     {
       final Context context = lookupSubContext( getPathName( name ) );
 
-      Object object = null;
+      Object object;
 
       final Name atom = getLeafName( name );
       try
@@ -227,13 +227,9 @@ public abstract class AbstractLocalContext
   }
 
   /**
-   * Enumerates the names bound in the named context.
-   *
-   * @param name the name of the context
-   * @return the enumeration
-   * @throws javax.naming.NamingException if an error occurs
+   * {@inheritDoc}
    */
-  public NamingEnumeration list( final Name name )
+  public NamingEnumeration<NameClassPair> list( final Name name )
     throws NamingException
   {
     if ( isSelf( name ) )
@@ -248,10 +244,10 @@ public abstract class AbstractLocalContext
     }
   }
 
-  protected abstract NamingEnumeration doLocalList()
+  protected abstract NamingEnumeration<NameClassPair> doLocalList()
     throws NamingException;
 
-  protected abstract NamingEnumeration doLocalListBindings()
+  protected abstract NamingEnumeration<Binding> doLocalListBindings()
     throws NamingException;
 
   /**
@@ -261,7 +257,7 @@ public abstract class AbstractLocalContext
    * @return the enumeration
    * @throws javax.naming.NamingException if an error occurs
    */
-  public NamingEnumeration listBindings( final Name name )
+  public NamingEnumeration<Binding> listBindings( final Name name )
     throws NamingException
   {
     if ( isSelf( name ) )
