@@ -15,11 +15,11 @@ import org.realityforge.spice.jndikit.DefaultNameParser;
 import org.realityforge.spice.jndikit.DefaultNamespace;
 
 /**
- * Initial context factory for memorycontext.
+ * Initial context factory for memory context.
  * <p/>
  * <p><b>WARNING:</b> This class should never be use used in a real
  * system. It is is just a class that demonstrates how to write a
- * basic <code>InitialContextFactory</code> for MemeoryContext.
+ * basic <code>InitialContextFactory</code> for MemoryContext.
  * However this factory creates a new Context every time which is
  * rarely desired behaviour.</p>
  * <p/>
