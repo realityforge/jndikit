@@ -15,7 +15,7 @@ import org.realityforge.spice.jndikit.DefaultNameParser;
 import org.realityforge.spice.jndikit.DefaultNamespace;
 
 /**
- * Initial context factory for memorycontext. This factory will
+ * Initial context factory for memory context. This factory will
  * retrieve the {@link MemoryContext} from a static variable.
  * Thus this factory will always return the same instance of
  * memory context.
@@ -36,12 +36,10 @@ public class StaticMemoryInitialContextFactory
      *
      * @return the new {@link MemoryContext}.
      */
-    private static final MemoryContext createMemoryContext()
+    private static MemoryContext createMemoryContext()
     {
         final DefaultNamespace namespace = new DefaultNamespace( new DefaultNameParser() );
-        return new MemoryContext( namespace,
-                                  new Hashtable(),
-                                  null );
+        return new MemoryContext( namespace, new Hashtable(), null );
     }
 }
 
