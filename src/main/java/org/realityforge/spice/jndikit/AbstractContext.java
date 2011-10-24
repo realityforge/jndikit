@@ -16,23 +16,19 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
 /**
- * Abstract JNDI Context that can be inherited from to
- * provide a particular type of Context.
- *
- * @author Peter Donald
- * @version $Revision: 1.1 $
+ * Abstract JNDI Context that can be inherited from to provide a particular type of Context.
  */
 public abstract class AbstractContext
     implements Context
 {
-    private Hashtable m_environment;
+    private Hashtable<String,Object> m_environment;
 
     public AbstractContext()
     {
-        this( new Hashtable() );
+        this( new Hashtable<String,Object>() );
     }
 
-    public AbstractContext( final Hashtable environment )
+    public AbstractContext( final Hashtable<String,Object> environment )
     {
         m_environment = environment;
     }
@@ -41,25 +37,20 @@ public abstract class AbstractContext
         throws NamingException;
 
     /**
-     * Add a key-value pair to environment
-     *
-     * @param key the key
-     * @param value the value
-     * @return the value
+     * {@inheritDoc}
      */
     public Object addToEnvironment( final String key, final Object value )
         throws NamingException
     {
         if( null == m_environment )
         {
-            m_environment = new Hashtable( 5, 0.75f );
+            m_environment = new Hashtable<String,Object>( 5, 0.75f );
         }
         return m_environment.put( key, value );
     }
 
     /**
-     * Release resources associated with context.
-     *
+     * {@inheritDoc}
      */
     public void close()
     {
@@ -72,12 +63,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Bind an object to a name.
-     *
-     * @param name the name to bind to
-     * @param object the object
-     * @throws NamingException if an error occurs such as
-     *            bad name or invalid binding
+     * {@inheritDoc}
      */
     public void bind( final String name, final Object object )
         throws NamingException
@@ -86,12 +72,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Bind an object to a name.
-     *
-     * @param name the name to bind to
-     * @param object the object
-     * @throws NamingException if an error occurs such as
-     *            bad name or invalid binding
+     * {@inheritDoc}
      */
     public void bind( final Name name, final Object object )
         throws NamingException
@@ -100,18 +81,13 @@ public abstract class AbstractContext
     }
 
     /**
-     * Helper method to bind
+     * {@inheritDoc}
      */
     protected abstract void bind( Name name, Object object, boolean rebind )
         throws NamingException;
 
     /**
-     * Compose a name form a name and a prefix.
-     *
-     * @param name the name
-     * @param prefix the prefix
-     * @return the composed name
-     * @throws javax.naming.NamingException if a badly formatted name for context
+     * {@inheritDoc}
      */
     public String composeName( final String name, final String prefix )
         throws NamingException
@@ -123,12 +99,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Compose a name form a name and a prefix.
-     *
-     * @param name the name
-     * @param prefix the prefix
-     * @return the composed name
-     * @throws javax.naming.NamingException if a badly formatted name for context
+     * {@inheritDoc}
      */
     public Name composeName( final Name name, final Name prefix )
         throws NamingException
@@ -139,12 +110,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Create a Subcontext.
-     *
-     * @param name the name of subcontext
-     * @return the created context
-     * @throws NamingException if an error occurs
-     *         (ie context exists, badly formated name etc)
+     * {@inheritDoc}
      */
     public Context createSubcontext( final String name )
         throws NamingException
@@ -153,11 +119,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Destroy a Subcontext.
-     *
-     * @param name the name of subcontext to destroy
-     * @throws javax.naming.NamingException if an error occurs such as malformed name or
-     *            context not exiting or not empty
+     * {@inheritDoc}
      */
     public void destroySubcontext( final String name )
         throws NamingException
@@ -166,9 +128,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Return a copy of environment.
-     *
-     * @return the environment
+     * {@inheritDoc}
      */
     public Hashtable getEnvironment()
         throws NamingException
@@ -184,11 +144,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Get the NameParser for the named context.
-     *
-     * @param name
-     * @return the NameParser
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public NameParser getNameParser( final String name )
         throws NamingException
@@ -197,11 +153,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Get the NameParser for the named context.
-     *
-     * @param name
-     * @return the NameParser
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public NameParser getNameParser( final Name name )
         throws NamingException
@@ -224,11 +176,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Enumerates the names bound in the named context, along with the objects bound to them.
-     *
-     * @param name the name of the context
-     * @return the enumeration
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public NamingEnumeration list( final String name )
         throws NamingException
@@ -237,11 +185,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Enumerates the names bound in the named context, along with the objects bound to them.
-     *
-     * @param name the name of the context
-     * @return the enumeration
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public NamingEnumeration listBindings( final String name )
         throws NamingException
@@ -250,12 +194,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Get the object named.
-     *
-     * @param name the name
-     * @return the object
-     * @throws NamingException if an error occurs
-     *         (ie object name is inavlid or unbound)
+     * {@inheritDoc}
      */
     public Object lookup( final String name )
         throws NamingException
@@ -264,12 +203,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Get the object named following all links.
-     *
-     * @param name the name
-     * @return the object
-     * @throws NamingException if an error occurs
-     *         (ie object name is inavlid or unbound)
+     * {@inheritDoc}
      */
     public Object lookupLink( final String name )
         throws NamingException
@@ -278,12 +212,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Get the object named following all links.
-     *
-     * @param name the name
-     * @return the object
-     * @throws NamingException if an error occurs
-     *         (ie object name is inavlid or unbound)
+     * {@inheritDoc}
      */
     public Object lookupLink( final Name name )
         throws NamingException
@@ -292,11 +221,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Binds a name to an object, overwriting any existing binding.
-     *
-     * @param name the name
-     * @param object the object
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public void rebind( final String name, final Object object )
         throws NamingException
@@ -305,11 +230,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Binds a name to an object, overwriting any existing binding.
-     *
-     * @param name the name
-     * @param object the object
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public void rebind( final Name name, final Object object )
         throws NamingException
@@ -318,10 +239,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Remove a key-value pair form environment and return it.
-     *
-     * @param key the key
-     * @return the value
+     * {@inheritDoc}
      */
     public Object removeFromEnvironment( final String key )
         throws NamingException
@@ -334,11 +252,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Rename a already bound object
-     *
-     * @param oldName the old name
-     * @param newName the new name
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public void rename( final String oldName, final String newName )
         throws NamingException
@@ -346,6 +260,9 @@ public abstract class AbstractContext
         rename( getNameParser().parse( oldName ), getNameParser().parse( newName ) );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void rename( final Name oldName, final Name newName )
         throws NamingException
     {
@@ -365,10 +282,7 @@ public abstract class AbstractContext
     }
 
     /**
-     * Unbind a object from a name.
-     *
-     * @param name the name
-     * @throws javax.naming.NamingException if an error occurs
+     * {@inheritDoc}
      */
     public void unbind( final String name )
         throws NamingException
@@ -380,7 +294,7 @@ public abstract class AbstractContext
      * Utility method to retrieve raw environment value.
      * This means that null will be returned if the value is null.
      *
-     * @return the environment hashtable or null
+     * @return the environment map or null
      */
     protected final Hashtable getRawEnvironment()
     {
