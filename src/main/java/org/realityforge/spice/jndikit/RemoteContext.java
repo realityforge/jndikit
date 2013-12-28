@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.MarshalledObject;
 import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.Map.Entry;
 import javax.naming.Binding;
 import javax.naming.CommunicationException;
 import javax.naming.ConfigurationException;
@@ -28,11 +28,11 @@ import javax.naming.Referenceable;
 /**
  * Context that hooks up to a remote source.
  */
+@SuppressWarnings( "unchecked" )
 public class RemoteContext
   extends AbstractContext
   implements Serializable
 {
-  public static final String NAMESPACE_NAME = "org.realityforge.spice.jndikit.Namespace/NAME";
   public static final String NAMESPACE = "org.realityforge.spice.jndikit.Namespace";
   public static final String NAMING_PROVIDER = "org.realityforge.spice.jndikit.NamingProvider";
 
@@ -43,6 +43,7 @@ public class RemoteContext
   private Name m_baseName;
 
   //for deserialisation
+  @SuppressWarnings( "UnusedDeclaration" )
   public RemoteContext()
   {
   }
@@ -65,7 +66,7 @@ public class RemoteContext
       throw new InvalidNameException( "Failed to bind self" );
     }
 
-    String className = null;
+    String className;
 
     object = getNamespace().getStateToBind( object, name, this, getRawEnvironment() );
 
@@ -137,7 +138,7 @@ public class RemoteContext
       throw new InvalidNameException( "Failed to create null subcontext" );
     }
 
-    Context result = null;
+    Context result;
     try
     {
       result = getProvider().createSubcontext( getAbsoluteName( name ) );
@@ -209,22 +210,21 @@ public class RemoteContext
   {
     try
     {
-      final Binding[] result = getProvider().listBindings( getAbsoluteName( name ) );
-
-      for ( int i = 0; i < result.length; i++ )
+      final Binding[] results = getProvider().listBindings( getAbsoluteName( name ) );
+      for ( final Binding result : results )
       {
-        final Object object = result[ i ].getObject();
+        final Object object = result.getObject();
         if ( object instanceof Context )
         {
           fillInContext( (Context) object );
         }
         else if ( object instanceof MarshalledObject )
         {
-          result[ i ].setObject( ( (MarshalledObject) object ).get() );
+          result.setObject( ( (MarshalledObject) object ).get() );
         }
       }
 
-      return new ArrayNamingEnumeration( this, getNamespace(), result );
+      return new ArrayNamingEnumeration( this, getNamespace(), results );
     }
     catch ( final Exception e )
     {
@@ -249,7 +249,7 @@ public class RemoteContext
     }
 
     //actually do a real-lookup
-    Object object = null;
+    Object object;
     try
     {
       object = getProvider().lookup( getAbsoluteName( name ) );
@@ -301,14 +301,10 @@ public class RemoteContext
   protected void fillInContext( final Context object )
     throws NamingException
   {
-    final Hashtable environment = getRawEnvironment();
-    final Iterator keys = environment.keySet().iterator();
-
-    while ( keys.hasNext() )
+    final Hashtable<String, Object> environment = getRawEnvironment();
+    for ( final Entry<String, Object> entry : environment.entrySet() )
     {
-      final String key = (String) keys.next();
-      final Object value = environment.get( key );
-      object.addToEnvironment( key, value );
+      object.addToEnvironment( entry.getKey(), entry.getValue() );
     }
   }
 
@@ -319,7 +315,7 @@ public class RemoteContext
     {
       final Object object = getRawEnvironment().get( RemoteContext.NAMESPACE );
 
-      if ( !( object instanceof Namespace ) || null == object )
+      if ( !( object instanceof Namespace ) )
       {
         throw new ConfigurationException( "Context does not contain Namespace" );
       }
@@ -339,7 +335,7 @@ public class RemoteContext
     {
       final Object object = getRawEnvironment().get( RemoteContext.NAMING_PROVIDER );
 
-      if ( !( object instanceof NamingProvider ) || null == object )
+      if ( !( object instanceof NamingProvider ) )
       {
         throw new ConfigurationException( "Context does not contain provider" );
       }
@@ -357,7 +353,7 @@ public class RemoteContext
   {
     if ( null == m_nameParser )
     {
-      //Make sure provider is valid and returns nameparser
+      //Make sure provider is valid and returns name parser
       try
       {
         m_nameParser = getProvider().getNameParser();
