@@ -3,7 +3,7 @@ require 'buildr/git_auto_version'
 
 desc "JNDI Kit: a toolkit designed to help with the construction of JNDI providers"
 define 'jndikit' do
-  project.group = 'org.realityforge'
+  project.group = 'org.realityforge.jndikit'
   compile.options.source = '1.6'
   compile.options.target = '1.6'
   compile.options.lint = 'all'
