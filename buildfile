@@ -1,8 +1,8 @@
 require 'buildr/jacoco'
+require 'buildr/git_auto_version'
 
 desc "JNDI Kit: a toolkit designed to help with the construction of JNDI providers"
 define 'jndikit' do
-  project.version = `git describe --tags`.strip
   project.group = 'org.realityforge'
   compile.options.source = '1.6'
   compile.options.target = '1.6'
