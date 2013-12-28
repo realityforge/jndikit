@@ -1,7 +1,7 @@
 require 'buildr/jacoco'
 
 desc "JNDI Kit: a toolkit designed to help with the construction of JNDI providers"
-define('jndikit') do
+define 'jndikit' do
   project.version = `git describe --tags`.strip
   project.group = 'org.realityforge'
   compile.options.source = '1.6'
