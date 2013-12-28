@@ -57,9 +57,7 @@ public class RMINamingProviderImpl
     throws NamingException
   {
     m_root.createSubcontext( name );
-
-    final RemoteContext context = new RemoteContext( null, name );
-    return context;
+    return new RemoteContext( null, name );
   }
 
   public void destroySubcontext( final Name name )
@@ -74,14 +72,14 @@ public class RMINamingProviderImpl
     //Remember that the bindings returned by this
     //actually have a nested Binding as an object
     final NamingEnumeration enumeration = m_root.listBindings( name );
-    final ArrayList pairs = new ArrayList();
+    final ArrayList<NameClassPair> pairs = new ArrayList<NameClassPair>();
 
     while ( enumeration.hasMore() )
     {
       final Binding binding = (Binding) enumeration.next();
       final Object object = binding.getObject();
 
-      String className = null;
+      String className;
 
       //check if it is an entry or a context
       if ( object instanceof Binding )
@@ -103,7 +101,7 @@ public class RMINamingProviderImpl
       pairs.add( new NameClassPair( binding.getName(), className ) );
     }
 
-    return (NameClassPair[]) pairs.toArray( new NameClassPair[ 0 ] );
+    return pairs.toArray( new NameClassPair[ pairs.size() ] );
   }
 
   public Binding[] listBindings( final Name name )
@@ -112,13 +110,13 @@ public class RMINamingProviderImpl
     //Remember that the bindings returned by this
     //actually have a nested Binding as an object
     final NamingEnumeration enumeration = m_root.listBindings( name );
-    final ArrayList bindings = new ArrayList();
+    final ArrayList<Binding> bindings = new ArrayList<Binding>();
 
     while ( enumeration.hasMore() )
     {
       final Binding binding = (Binding) enumeration.next();
       Object object = binding.getObject();
-      String className = null;
+      String className;
 
       //check if it is an entry or a context
       if ( object instanceof Binding )
@@ -146,7 +144,7 @@ public class RMINamingProviderImpl
       bindings.add( result );
     }
 
-    return (Binding[]) bindings.toArray( new Binding[ 0 ] );
+    return bindings.toArray( new Binding[ bindings.size() ] );
   }
 
   public Object lookup( final Name name )
