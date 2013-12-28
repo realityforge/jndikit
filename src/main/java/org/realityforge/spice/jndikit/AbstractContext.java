@@ -82,9 +82,6 @@ public abstract class AbstractContext
     bind( name, object, false );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   protected abstract void bind( Name name, Object object, boolean rebind )
     throws NamingException;
 
