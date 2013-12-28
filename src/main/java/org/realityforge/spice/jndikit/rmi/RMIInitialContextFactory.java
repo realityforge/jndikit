@@ -30,6 +30,7 @@ import org.realityforge.spice.jndikit.RemoteContext;
 public class RMIInitialContextFactory
   implements InitialContextFactory
 {
+  @SuppressWarnings( "unchecked" )
   public Context getInitialContext( final Hashtable environment )
     throws NamingException
   {

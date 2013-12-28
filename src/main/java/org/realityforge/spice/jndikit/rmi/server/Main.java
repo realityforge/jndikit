@@ -22,6 +22,7 @@ import org.realityforge.spice.jndikit.memory.MemoryContext;
 /**
  * This is a simple test name server and should NOT be used in a production system.
  */
+@SuppressWarnings( "unchecked" )
 public class Main
   implements Runnable
 {
@@ -151,7 +152,7 @@ public class Main
       }
       catch ( final InterruptedIOException iioe )
       {
-        continue;
+        //Ignore
       }
       catch ( final IOException ioe )
       {

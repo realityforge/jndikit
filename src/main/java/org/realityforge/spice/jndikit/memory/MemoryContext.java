@@ -24,12 +24,12 @@ import org.realityforge.spice.jndikit.Namespace;
 public class MemoryContext
   extends AbstractLocalContext
 {
-  private Hashtable m_bindings;
+  private Hashtable<String, Object> m_bindings;
 
   protected MemoryContext( final Namespace namespace,
                            final Hashtable<String, Object> environment,
                            final Context parent,
-                           final Hashtable bindings )
+                           final Hashtable<String, Object> bindings )
   {
     super( namespace, environment, parent );
     m_bindings = bindings;
@@ -39,7 +39,7 @@ public class MemoryContext
                         final Hashtable<String, Object> environment,
                         final Context parent )
   {
-    this( namespace, environment, parent, new Hashtable( 11 ) );
+    this( namespace, environment, parent, new Hashtable<String, Object>( 11 ) );
   }
 
   protected Context newContext()
@@ -60,16 +60,24 @@ public class MemoryContext
     m_bindings.put( name.get( 0 ), object );
   }
 
+  @SuppressWarnings( "unchecked" )
   protected NamingEnumeration<NameClassPair> doLocalList()
     throws NamingException
   {
-    return new MemoryNamingEnumeration( this, getNamespace(), m_bindings, false );
+    return (NamingEnumeration<NameClassPair>) (NamingEnumeration) new MemoryNamingEnumeration( this,
+                                                                                               getNamespace(),
+                                                                                               m_bindings,
+                                                                                               false );
   }
 
+  @SuppressWarnings( "unchecked" )
   protected NamingEnumeration<Binding> doLocalListBindings()
     throws NamingException
   {
-    return new MemoryNamingEnumeration( this, getNamespace(), m_bindings, true );
+    return (NamingEnumeration<Binding>) (NamingEnumeration) new MemoryNamingEnumeration( this,
+                                                                                         getNamespace(),
+                                                                                         m_bindings,
+                                                                                         true );
   }
 
   /**

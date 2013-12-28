@@ -16,8 +16,8 @@ import javax.naming.NamingException;
 /**
  * Class for building NamingEnumerations.
  */
-public abstract class AbstractNamingEnumeration
-  implements NamingEnumeration
+public abstract class AbstractNamingEnumeration<T>
+  implements NamingEnumeration<T>
 {
   private Context m_owner;
   private Namespace m_namespace;
@@ -34,7 +34,7 @@ public abstract class AbstractNamingEnumeration
     return hasMoreElements();
   }
 
-  public Object nextElement()
+  public T nextElement()
   {
     try
     {

@@ -15,15 +15,15 @@ import javax.naming.NamingException;
 /**
  * Class for building NamingEnumerations.
  */
-final class ArrayNamingEnumeration
-  extends AbstractNamingEnumeration
+final class ArrayNamingEnumeration<T>
+  extends AbstractNamingEnumeration<T>
 {
-  protected Object[] m_items;
+  protected T[] m_items;
   protected int m_index;
 
   public ArrayNamingEnumeration( final Context owner,
                                  final Namespace namespace,
-                                 final Object[] items )
+                                 final T[] items )
   {
     super( owner, namespace );
     m_items = items;
@@ -35,7 +35,7 @@ final class ArrayNamingEnumeration
     return m_index < m_items.length;
   }
 
-  public Object next()
+  public T next()
     throws NamingException
   {
     if ( !hasMore() )
@@ -43,7 +43,7 @@ final class ArrayNamingEnumeration
       throw new NoSuchElementException();
     }
 
-    final Object object = m_items[ m_index++ ];
+    final T object = m_items[ m_index++ ];
 
     if ( object instanceof Binding )
     {

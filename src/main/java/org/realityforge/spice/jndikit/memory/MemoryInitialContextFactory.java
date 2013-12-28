@@ -45,6 +45,7 @@ import org.realityforge.spice.jndikit.DefaultNamespace;
 public class MemoryInitialContextFactory
   implements InitialContextFactory
 {
+  @SuppressWarnings( "unchecked" )
   public Context getInitialContext( final Hashtable environment )
     throws NamingException
   {

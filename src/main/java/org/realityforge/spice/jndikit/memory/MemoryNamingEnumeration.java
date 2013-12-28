@@ -21,15 +21,15 @@ import org.realityforge.spice.jndikit.Namespace;
  * Class for building NamingEnumerations.
  */
 final class MemoryNamingEnumeration
-  extends AbstractNamingEnumeration
+  extends AbstractNamingEnumeration<Object>
 {
-  protected Hashtable m_bindings;
+  protected Hashtable<String, Object> m_bindings;
   protected Iterator m_names;
   protected boolean m_returnBindings;
 
   public MemoryNamingEnumeration( final Context owner,
                                   final Namespace namespace,
-                                  final Hashtable bindings,
+                                  final Hashtable<String, Object> bindings,
                                   final boolean returnBindings )
   {
     super( owner, namespace );
