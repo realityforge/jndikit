@@ -8,6 +8,8 @@ define 'jndikit' do
   compile.options.target = '1.6'
   compile.options.lint = 'all'
 
+  project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
+
   compile.with :javax_naming
 
   compile do
