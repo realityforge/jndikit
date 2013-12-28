@@ -1,4 +1,4 @@
-require 'buildr/java/emma'
+require 'buildr/jacoco'
 
 desc "JNDI Kit: a toolkit designed to help with the construction of JNDI providers"
 define('jndikit') do
@@ -21,6 +21,4 @@ define('jndikit') do
 
   package(:jar)
   package(:sources)
-
-  emma.include 'org.realityforge.*'
 end
