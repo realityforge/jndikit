@@ -21,4 +21,5 @@ define('jndikit') do
 
   package(:jar)
   package(:sources)
+  package(:javadoc)
 end
