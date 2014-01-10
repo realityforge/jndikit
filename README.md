@@ -10,8 +10,6 @@ Download the jar from maven central. This can be done by adding a Maven dependen
 
 ```xml
 <dependency>
-   <groupId>org.realityforge.proxy-servlet</groupId>
-   <artifactId>proxy-servlet</artifactId>
    <version>0.2.0</version>
 </dependency>
 ```
@@ -19,6 +17,6 @@ Download the jar from maven central. This can be done by adding a Maven dependen
 Credit
 ------
 
-Note: JNDI Kit has jumped through a number of open source organisaztions and has accepted a contribution from
+Note: JNDI Kit has jumped through a number of open source organisations and has accepted a contribution from
 Tim Anderson before landing at it's current location.
 
