@@ -10,7 +10,9 @@ Download the jar from maven central. This can be done by adding a Maven dependen
 
 ```xml
 <dependency>
-   <version>0.2.0</version>
+   <groupId>org.realityforge.jndikit</groupId>
+   <artifactId>jndikit</artifactId>
+   <version>1.4</version>
 </dependency>
 ```
 
