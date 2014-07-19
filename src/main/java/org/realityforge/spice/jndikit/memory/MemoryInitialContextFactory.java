@@ -54,4 +54,3 @@ public class MemoryInitialContextFactory
     return new MemoryContext( namespace, environment, null );
   }
 }
-

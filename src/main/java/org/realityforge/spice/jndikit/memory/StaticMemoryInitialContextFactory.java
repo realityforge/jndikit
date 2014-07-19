@@ -42,4 +42,3 @@ public class StaticMemoryInitialContextFactory
     return new MemoryContext( namespace, new Hashtable<String, Object>(), null );
   }
 }
-

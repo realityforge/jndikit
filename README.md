@@ -21,4 +21,3 @@ Credit
 
 Note: JNDI Kit has jumped through a number of open source organisations and has accepted a contribution from
 Tim Anderson before landing at it's current location.
-

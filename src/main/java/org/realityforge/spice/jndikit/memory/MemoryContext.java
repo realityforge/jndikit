@@ -111,4 +111,3 @@ public class MemoryContext
     m_bindings.remove( name.get( 0 ) );
   }
 }
-
