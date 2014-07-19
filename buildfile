@@ -1,3 +1,5 @@
+require 'buildr/gpg'
+require 'buildr/custom_pom'
 require 'buildr/jacoco'
 require 'buildr/git_auto_version'
 
