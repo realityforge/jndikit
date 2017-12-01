@@ -2,7 +2,7 @@ require 'buildr/gpg'
 require 'buildr/jacoco'
 require 'buildr/git_auto_version'
 
-desc "JNDI Kit: a toolkit designed to help with the construction of JNDI providers"
+desc 'JNDI Kit: a toolkit designed to help with the construction of JNDI providers'
 define 'jndikit' do
   project.group = 'org.realityforge.jndikit'
   compile.options.source = '1.8'
@@ -22,8 +22,8 @@ define 'jndikit' do
   compile do
     Buildr.ant("rmic") do |ant|
       ant.rmic :base => _(:target, :main, :classes),
-               :classname => "org.realityforge.spice.jndikit.rmi.server.RMINamingProviderImpl",
-               :stubVersion => "1.2",
+               :classname => 'org.realityforge.spice.jndikit.rmi.server.RMINamingProviderImpl',
+               :stubVersion => '1.2',
                :classpath => compile.dependencies.join(";")
     end
   end
