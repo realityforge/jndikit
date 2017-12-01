@@ -20,7 +20,7 @@ define 'jndikit' do
   test.using :junit
 
   compile do
-    Buildr.ant("rmic") do |ant|
+    Buildr.ant('rmic') do |ant|
       ant.rmic :base => _(:target, :main, :classes),
                :classname => 'org.realityforge.spice.jndikit.rmi.server.RMINamingProviderImpl',
                :stubVersion => '1.2',
