@@ -1,4 +1,4 @@
 source 'http://rubygems.org'
 
-gem 'buildr', '= 1.5.4'
+gem 'buildr', '= 1.5.5'
 gem 'zapwhite', '= 2.8.0'
