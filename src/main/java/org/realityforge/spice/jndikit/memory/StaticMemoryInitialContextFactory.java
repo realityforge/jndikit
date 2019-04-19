@@ -39,6 +39,6 @@ public class StaticMemoryInitialContextFactory
   private static MemoryContext createMemoryContext()
   {
     final DefaultNamespace namespace = new DefaultNamespace( new DefaultNameParser() );
-    return new MemoryContext( namespace, new Hashtable<String, Object>(), null );
+    return new MemoryContext( namespace, new Hashtable<>(), null );
   }
 }

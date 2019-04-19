@@ -39,7 +39,7 @@ public class MemoryContext
                         final Hashtable<String, Object> environment,
                         final Context parent )
   {
-    this( namespace, environment, parent, new Hashtable<String, Object>( 11 ) );
+    this( namespace, environment, parent, new Hashtable<>( 11 ) );
   }
 
   protected Context newContext()

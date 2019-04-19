@@ -72,7 +72,7 @@ public class RMINamingProviderImpl
     //Remember that the bindings returned by this
     //actually have a nested Binding as an object
     final NamingEnumeration enumeration = m_root.listBindings( name );
-    final ArrayList<NameClassPair> pairs = new ArrayList<NameClassPair>();
+    final ArrayList<NameClassPair> pairs = new ArrayList<>();
 
     while ( enumeration.hasMore() )
     {
@@ -110,7 +110,7 @@ public class RMINamingProviderImpl
     //Remember that the bindings returned by this
     //actually have a nested Binding as an object
     final NamingEnumeration enumeration = m_root.listBindings( name );
-    final ArrayList<Binding> bindings = new ArrayList<Binding>();
+    final ArrayList<Binding> bindings = new ArrayList<>();
 
     while ( enumeration.hasMore() )
     {

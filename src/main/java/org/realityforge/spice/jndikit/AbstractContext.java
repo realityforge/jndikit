@@ -27,7 +27,7 @@ public abstract class AbstractContext
 
   public AbstractContext()
   {
-    this( new Hashtable<String, Object>() );
+    this( new Hashtable<>() );
   }
 
   public AbstractContext( final Hashtable<String, Object> environment )
@@ -43,7 +43,7 @@ public abstract class AbstractContext
   {
     if ( null == m_environment )
     {
-      m_environment = new Hashtable<String, Object>( 5, 0.75f );
+      m_environment = new Hashtable<>( 5, 0.75f );
     }
     return m_environment.put( key, value );
   }
