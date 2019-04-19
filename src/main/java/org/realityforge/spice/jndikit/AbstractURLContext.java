@@ -34,27 +34,18 @@ public abstract class AbstractURLContext
     m_scheme = scheme;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Name parse( final String name )
     throws NamingException
   {
     return ( new CompositeName().add( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   protected NameParser getNameParser()
     throws NamingException
   {
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   protected void bind( final Name name, final Object object, final boolean rebind )
     throws NamingException
   {
@@ -78,9 +69,6 @@ public abstract class AbstractURLContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Context createSubcontext( final Name name )
     throws NamingException
   {
@@ -97,9 +85,6 @@ public abstract class AbstractURLContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void destroySubcontext( final Name name )
     throws NamingException
   {
@@ -115,18 +100,12 @@ public abstract class AbstractURLContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public String getNameInNamespace()
     throws NamingException
   {
     return "";
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NamingEnumeration<NameClassPair> list( final Name name )
     throws NamingException
   {
@@ -143,9 +122,6 @@ public abstract class AbstractURLContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NamingEnumeration<Binding> listBindings( final Name name )
     throws NamingException
   {
@@ -162,9 +138,6 @@ public abstract class AbstractURLContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Object lookup( final Name name )
     throws NamingException
   {
@@ -181,9 +154,6 @@ public abstract class AbstractURLContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void unbind( final Name name )
     throws NamingException
   {

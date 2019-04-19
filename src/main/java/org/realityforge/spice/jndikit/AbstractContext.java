@@ -38,9 +38,6 @@ public abstract class AbstractContext
   protected abstract NameParser getNameParser()
     throws NamingException;
 
-  /**
-   * {@inheritDoc}
-   */
   public Object addToEnvironment( final String key, final Object value )
     throws NamingException
   {
@@ -51,9 +48,6 @@ public abstract class AbstractContext
     return m_environment.put( key, value );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void close()
   {
     m_environment = null;
@@ -64,18 +58,12 @@ public abstract class AbstractContext
     return ( name.isEmpty() || name.get( 0 ).equals( "" ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void bind( final String name, final Object object )
     throws NamingException
   {
     bind( getNameParser().parse( name ), object );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void bind( final Name name, final Object object )
     throws NamingException
   {
@@ -85,9 +73,6 @@ public abstract class AbstractContext
   protected abstract void bind( Name name, Object object, boolean rebind )
     throws NamingException;
 
-  /**
-   * {@inheritDoc}
-   */
   public String composeName( final String name, final String prefix )
     throws NamingException
   {
@@ -97,9 +82,6 @@ public abstract class AbstractContext
     return result.toString();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Name composeName( final Name name, final Name prefix )
     throws NamingException
   {
@@ -108,27 +90,18 @@ public abstract class AbstractContext
     return result;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Context createSubcontext( final String name )
     throws NamingException
   {
     return createSubcontext( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void destroySubcontext( final String name )
     throws NamingException
   {
     destroySubcontext( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Hashtable getEnvironment()
     throws NamingException
   {
@@ -142,18 +115,12 @@ public abstract class AbstractContext
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NameParser getNameParser( final String name )
     throws NamingException
   {
     return getNameParser( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NameParser getNameParser( final Name name )
     throws NamingException
   {
@@ -174,72 +141,48 @@ public abstract class AbstractContext
     return parser;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NamingEnumeration<NameClassPair> list( final String name )
     throws NamingException
   {
     return list( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NamingEnumeration<Binding> listBindings( final String name )
     throws NamingException
   {
     return listBindings( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Object lookup( final String name )
     throws NamingException
   {
     return lookup( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Object lookupLink( final String name )
     throws NamingException
   {
     return lookupLink( getNameParser().parse( name ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Object lookupLink( final Name name )
     throws NamingException
   {
     return lookup( name );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void rebind( final String name, final Object object )
     throws NamingException
   {
     rebind( getNameParser().parse( name ), object );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void rebind( final Name name, final Object object )
     throws NamingException
   {
     bind( name, object, true );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Object removeFromEnvironment( final String key )
     throws NamingException
   {
@@ -250,18 +193,12 @@ public abstract class AbstractContext
     return m_environment.remove( key );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void rename( final String oldName, final String newName )
     throws NamingException
   {
     rename( getNameParser().parse( oldName ), getNameParser().parse( newName ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void rename( final Name oldName, final Name newName )
     throws NamingException
   {
@@ -280,9 +217,6 @@ public abstract class AbstractContext
     unbind( oldName );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void unbind( final String name )
     throws NamingException
   {

@@ -139,9 +139,6 @@ public abstract class AbstractLocalContext
     m_namespace = null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public Context createSubcontext( final Name name )
     throws NamingException
   {
@@ -150,9 +147,6 @@ public abstract class AbstractLocalContext
     return context;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public void destroySubcontext( final Name name )
     throws NamingException
   {
@@ -226,9 +220,6 @@ public abstract class AbstractLocalContext
     return m_namespace.getNameParser();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public NamingEnumeration<NameClassPair> list( final Name name )
     throws NamingException
   {
