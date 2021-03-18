@@ -20,7 +20,6 @@ import javax.naming.Referenceable;
 public class ExceptionReferenceable
   implements Referenceable
 {
-
   /**
    * Retrieves the Reference of this object.
    *
@@ -32,5 +31,4 @@ public class ExceptionReferenceable
                           TestObjectFactory.class.getName(),
                           null );
   }
-
 }
