@@ -21,7 +21,6 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
 public class RMIContextDefaultNamespaceTestCase
   extends AbstractRMIContextTestCase
 {
-
   public RMIContextDefaultNamespaceTestCase()
   {
     super( new DefaultNamespaceICF() );

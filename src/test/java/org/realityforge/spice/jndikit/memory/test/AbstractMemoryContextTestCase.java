@@ -9,9 +9,10 @@ package org.realityforge.spice.jndikit.memory.test;
 
 import javax.naming.NamingException;
 import javax.naming.OperationNotSupportedException;
-import junit.framework.AssertionFailedError;
 import org.realityforge.spice.jndikit.StandardNamespace;
 import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
+import org.testng.annotations.Test;
+import static org.testng.AssertJUnit.*;
 
 /**
  * Unit test for Memory context, using the {@link StandardNamespace}.
@@ -19,9 +20,9 @@ import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
 public abstract class AbstractMemoryContextTestCase
   extends AbstractContextTestCase
 {
-
+  @Test
   public void testGetNameInNamespace()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -33,7 +34,7 @@ public abstract class AbstractMemoryContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.getMessage() );
+      throw new AssertionError( ne.getMessage() );
     }
   }
 }

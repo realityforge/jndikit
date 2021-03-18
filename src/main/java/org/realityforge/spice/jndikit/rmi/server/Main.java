@@ -89,8 +89,7 @@ public class Main
     {
       // Export server
       debug( "Exporting RMI object." );
-      final Remote remote =
-        UnicastRemoteObject.exportObject( m_server );
+      final Remote remote = UnicastRemoteObject.exportObject( m_server, 0 );
       m_serverStub = new MarshalledObject( remote );
     }
     catch ( final IOException ioe )

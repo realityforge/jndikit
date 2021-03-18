@@ -21,14 +21,13 @@ import org.realityforge.spice.jndikit.test.TestStateFactory;
 public class MemoryContextTestCase
   extends AbstractMemoryContextTestCase
 {
-
   protected Context getRoot()
     throws Exception
   {
     final DefaultNameParser parser = new DefaultNameParser();
     final Namespace namespace = new StandardNamespace( parser );
 
-    Hashtable environment = new Hashtable();
+    final Hashtable<String,Object> environment = new Hashtable<>();
     environment.put( Context.STATE_FACTORIES, TestStateFactory.class.getName() );
 
     return new MemoryContext( namespace, environment, null );

@@ -9,9 +9,10 @@ package org.realityforge.spice.jndikit.rmi.test;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
-import junit.framework.AssertionFailedError;
 import org.realityforge.spice.jndikit.rmi.RMIInitialContextFactory;
 import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
+import org.testng.annotations.Test;
+import static org.testng.AssertJUnit.*;
 
 /**
  * Unit test for RMI context.
@@ -27,8 +28,9 @@ public abstract class AbstractRMIContextTestCase
     _helper = new RMITestSetup( factory );
   }
 
+  @Test
   public void testGetNameInNamespace()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -40,7 +42,7 @@ public abstract class AbstractRMIContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.getMessage() );
+      throw new AssertionError( ne.getMessage() );
     }
   }
 
@@ -48,10 +50,10 @@ public abstract class AbstractRMIContextTestCase
    * Verifies that non-Serializable and non-Referenceable objects cannot be
    * bound.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testInvalidBind()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -82,5 +84,4 @@ public abstract class AbstractRMIContextTestCase
   {
     return _helper.getRoot();
   }
-
 }

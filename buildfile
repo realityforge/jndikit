@@ -17,16 +17,6 @@ define 'jndikit' do
   pom.provided_dependencies.concat [:javax_naming]
 
   compile.with :javax_naming
-  test.using :junit
-
-  compile do
-    Buildr.ant('rmic') do |ant|
-      ant.rmic :base => _(:target, :main, :classes),
-               :classname => 'org.realityforge.spice.jndikit.rmi.server.RMINamingProviderImpl',
-               :stubVersion => '1.2',
-               :classpath => compile.dependencies.join(";")
-    end
-  end
 
   package(:jar)
   package(:sources)

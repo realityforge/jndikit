@@ -24,14 +24,12 @@ import javax.naming.NamingException;
 import javax.naming.NotContextException;
 import javax.naming.Reference;
 import javax.naming.Referenceable;
-import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
+import static org.testng.AssertJUnit.*;
 
 /**
  * Unit testing for JNDI system
  */
 public abstract class AbstractContextTestCase
-  extends TestCase
 {
   protected static final Object O1 = "iO1";
   protected static final Object O2 = "iO2";
@@ -48,7 +46,7 @@ public abstract class AbstractContextTestCase
 
 
   public void testBindToDirectContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -81,12 +79,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testUnBindFromDirectContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     testBindToDirectContext();
 
@@ -120,12 +118,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testBindToDirectSubContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -156,12 +154,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testUnBindFromDirectSubContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     testBindToDirectSubContext();
 
@@ -194,12 +192,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testBindToArbitarySubContexts()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -276,12 +274,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testUnBindFromArbitarySubContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     testBindToArbitarySubContexts();
 
@@ -338,17 +336,17 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   /**
    * Verifies that attempting to bind to self throws NamingException.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testBindSelf()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -363,10 +361,10 @@ public abstract class AbstractContextTestCase
   /**
    * Verifies that attempting to unbind self throws NamingException.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testUnbindSelf()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -379,7 +377,7 @@ public abstract class AbstractContextTestCase
   }
 
   public void testCreateSubContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -419,12 +417,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testDestroySubContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     testCreateSubContext();
 
@@ -508,12 +506,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testRenameToDirectContext()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -617,12 +615,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testReBind()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -655,7 +653,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
 
     try
@@ -695,7 +693,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
 
     try
@@ -714,7 +712,7 @@ public abstract class AbstractContextTestCase
    * can be looked up from it
    */
   public void testSubcontextBindAndLookup()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -730,7 +728,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
@@ -740,7 +738,7 @@ public abstract class AbstractContextTestCase
    * from the subcontext</li> </ul>
    */
   public void testSubcontextBindAndList1()
-    throws AssertionFailedError
+    throws AssertionError
   {
     Map map = new HashMap();
     map.put( "o1", O1 );
@@ -769,7 +767,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
@@ -779,7 +777,7 @@ public abstract class AbstractContextTestCase
    * list the binding names from the subcontext</li> </ul>
    */
   public void testSubcontextBindAndList2()
-    throws AssertionFailedError
+    throws AssertionError
   {
     Map map = new HashMap();
     map.put( "o1", O1 );
@@ -809,12 +807,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testSubcontextListBindings()
-    throws AssertionFailedError
+    throws AssertionError
   {
     Map map = new HashMap();
     map.put( "o1", O1 );
@@ -840,7 +838,7 @@ public abstract class AbstractContextTestCase
         Object expected = map.get( name );
         if ( expected == null )
         {
-          throw new AssertionFailedError( "Invalid binding: name="
+          throw new AssertionError( "Invalid binding: name="
                                           + name
                                           + ", classname="
                                           + binding.getClassName()
@@ -864,7 +862,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
 
     assertEquals( map.keySet(), names );
@@ -873,10 +871,10 @@ public abstract class AbstractContextTestCase
   /**
    * Bind a tree of subcontexts, and ensure they can be listed
    *
-   * @throws AssertionFailedError
+   * @throws AssertionError
    */
   public void testRecursiveListBindings()
-    throws AssertionFailedError
+    throws AssertionError
   {
     Map expected = new HashMap();
     expected.put( "o1", O1 );
@@ -902,7 +900,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
 
     assertEquals( expected, result );
@@ -912,10 +910,10 @@ public abstract class AbstractContextTestCase
    * Tests the {@link Context#addToEnvironment(String, Object)} and {@link
    * Context#removeFromEnvironment(String)} methods.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testEnvironment()
-    throws AssertionFailedError
+    throws AssertionError
   {
     final String key = "key";
     Object value = null;
@@ -940,12 +938,12 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   public void testComposeName()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -956,17 +954,17 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
   /**
    * Bind a {@link Referenceable}, and ensure that its reference is used.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testReferenceable()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -991,7 +989,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
@@ -999,10 +997,10 @@ public abstract class AbstractContextTestCase
    * Bind a {@link Reference} and ensure that the class it refers to is
    * returned on subsequent lookup.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testReference()
-    throws AssertionFailedError
+    throws AssertionError
   {
     final String expected = "foo";
     try
@@ -1026,7 +1024,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
@@ -1034,10 +1032,10 @@ public abstract class AbstractContextTestCase
    * Bind a {@link TestData} and ensure that {@link TestStateFactory} is
    * invoked to convert it to a {@link Reference}.
    *
-   * @throws AssertionFailedError if the test fails.
+   * @throws AssertionError if the test fails.
    */
   public void testStateFactory()
-    throws AssertionFailedError
+    throws AssertionError
   {
     final String expected = "bar";
     try
@@ -1054,7 +1052,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
@@ -1062,10 +1060,10 @@ public abstract class AbstractContextTestCase
    * Verify that {@link NamingEnumeration#next()} throws {@link
    * NamingException} when a reference can't be resolved.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testNextForBadReference()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -1086,7 +1084,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
@@ -1094,10 +1092,10 @@ public abstract class AbstractContextTestCase
    * Verify that {@link NamingEnumeration#nextElement()} throws {@link
    * NoSuchElementException} when a reference can't be resolved.
    *
-   * @throws AssertionFailedError if the test fails
+   * @throws AssertionError if the test fails
    */
   public void testNextElementForBadReference()
-    throws AssertionFailedError
+    throws AssertionError
   {
     try
     {
@@ -1118,7 +1116,7 @@ public abstract class AbstractContextTestCase
     }
     catch ( final NamingException ne )
     {
-      throw new AssertionFailedError( ne.toString() );
+      throw new AssertionError( ne.toString() );
     }
   }
 
