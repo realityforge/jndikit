@@ -64,7 +64,7 @@ public class MemoryContext
   protected NamingEnumeration<NameClassPair> doLocalList()
     throws NamingException
   {
-    return (NamingEnumeration<NameClassPair>) (NamingEnumeration) new MemoryNamingEnumeration( this,
+    return (NamingEnumeration<NameClassPair>) (NamingEnumeration<?>) new MemoryNamingEnumeration( this,
                                                                                                getNamespace(),
                                                                                                m_bindings,
                                                                                                false );
@@ -74,7 +74,7 @@ public class MemoryContext
   protected NamingEnumeration<Binding> doLocalListBindings()
     throws NamingException
   {
-    return (NamingEnumeration<Binding>) (NamingEnumeration) new MemoryNamingEnumeration( this,
+    return (NamingEnumeration<Binding>) (NamingEnumeration<?>) new MemoryNamingEnumeration( this,
                                                                                          getNamespace(),
                                                                                          m_bindings,
                                                                                          true );
