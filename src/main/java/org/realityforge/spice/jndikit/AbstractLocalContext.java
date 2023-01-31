@@ -135,6 +135,7 @@ public abstract class AbstractLocalContext
 
   public void close()
   {
+    super.close();
     m_parent = null;
     m_namespace = null;
   }
@@ -153,6 +154,10 @@ public abstract class AbstractLocalContext
     if ( isSelf( name ) )
     {
       throw new InvalidNameException( "Failed to destroy self" );
+    }
+    if ( isClosed() )
+    {
+      return;
     }
 
     if ( 1 == name.size() )

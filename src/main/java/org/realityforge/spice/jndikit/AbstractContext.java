@@ -24,6 +24,7 @@ public abstract class AbstractContext
   implements Context
 {
   private Hashtable<String, Object> m_environment;
+  private boolean m_closed;
 
   public AbstractContext()
   {
@@ -50,7 +51,13 @@ public abstract class AbstractContext
 
   public void close()
   {
+    m_closed = true;
     m_environment = null;
+  }
+
+  protected final boolean isClosed()
+  {
+    return m_closed;
   }
 
   protected boolean isSelf( final Name name )
@@ -61,12 +68,14 @@ public abstract class AbstractContext
   public void bind( final String name, final Object object )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     bind( getNameParser().parse( name ), object );
   }
 
   public void bind( final Name name, final Object object )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     bind( name, object, false );
   }
 
@@ -76,6 +85,7 @@ public abstract class AbstractContext
   public String composeName( final String name, final String prefix )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     final NameParser nameParser = getNameParser();
     final Name result =
       composeName( nameParser.parse( name ), nameParser.parse( prefix ) );
@@ -85,6 +95,7 @@ public abstract class AbstractContext
   public Name composeName( final Name name, final Name prefix )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     final Name result = (Name) ( prefix.clone() );
     result.addAll( name );
     return result;
@@ -93,18 +104,21 @@ public abstract class AbstractContext
   public Context createSubcontext( final String name )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     return createSubcontext( getNameParser().parse( name ) );
   }
 
   public void destroySubcontext( final String name )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     destroySubcontext( getNameParser().parse( name ) );
   }
 
   public Hashtable getEnvironment()
     throws NamingException
   {
+    ensureContextIsNotClosed();
     if ( null == m_environment )
     {
       return new Hashtable( 3, 0.75f );
@@ -118,12 +132,14 @@ public abstract class AbstractContext
   public NameParser getNameParser( final String name )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     return getNameParser( getNameParser().parse( name ) );
   }
 
   public NameParser getNameParser( final Name name )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     if ( name.isEmpty() )
     {
       return getNameParser();
@@ -144,42 +160,64 @@ public abstract class AbstractContext
   public NamingEnumeration<NameClassPair> list( final String name )
     throws NamingException
   {
+    if( isClosed() )
+    {
+      return new NullNamingEnumeration<>();
+    }
     return list( getNameParser().parse( name ) );
   }
 
   public NamingEnumeration<Binding> listBindings( final String name )
     throws NamingException
   {
+    if( isClosed() )
+    {
+      return new NullNamingEnumeration<>();
+    }
     return listBindings( getNameParser().parse( name ) );
   }
 
   public Object lookup( final String name )
     throws NamingException
   {
+    if( isClosed() )
+    {
+      return null;
+    }
     return lookup( getNameParser().parse( name ) );
   }
 
   public Object lookupLink( final String name )
     throws NamingException
   {
+    if( isClosed() )
+    {
+      return null;
+    }
     return lookupLink( getNameParser().parse( name ) );
   }
 
   public Object lookupLink( final Name name )
     throws NamingException
   {
+    if( isClosed() )
+    {
+      return null;
+    }
     return lookup( name );
   }
 
   public void rebind( final String name, final Object object )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     rebind( getNameParser().parse( name ), object );
   }
 
   public void rebind( final Name name, final Object object )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     bind( name, object, true );
   }
 
@@ -196,12 +234,14 @@ public abstract class AbstractContext
   public void rename( final String oldName, final String newName )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     rename( getNameParser().parse( oldName ), getNameParser().parse( newName ) );
   }
 
   public void rename( final Name oldName, final Name newName )
     throws NamingException
   {
+    ensureContextIsNotClosed();
     if ( isSelf( oldName ) || isSelf( newName ) )
     {
       final String message = "Failed to rebind self";
@@ -220,7 +260,10 @@ public abstract class AbstractContext
   public void unbind( final String name )
     throws NamingException
   {
-    unbind( getNameParser().parse( name ) );
+    if( !isClosed() )
+    {
+      unbind( getNameParser().parse( name ) );
+    }
   }
 
   /**
@@ -258,5 +301,14 @@ public abstract class AbstractContext
     throws NamingException
   {
     return name.getSuffix( name.size() - 1 );
+  }
+
+  private void ensureContextIsNotClosed()
+    throws NamingException
+  {
+    if ( isClosed() )
+    {
+      throw new NamingException( "Context is closed" );
+    }
   }
 }
