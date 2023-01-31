@@ -2,6 +2,8 @@ require 'buildr/gpg'
 require 'buildr/jacoco'
 require 'buildr/git_auto_version'
 
+Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
+
 desc 'JNDI Kit: a toolkit designed to help with the construction of JNDI providers'
 define 'jndikit' do
   project.group = 'org.realityforge.jndikit'
