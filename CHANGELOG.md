@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v1.5](https://github.com/realityforge/jndikit/tree/v1.5) (2023-01-31) · [Full Changelog](https://github.com/spritz/spritz/compare/v1.4...v1.5)
 
 Changes in this release:
