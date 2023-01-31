@@ -24,7 +24,7 @@ import org.realityforge.spice.jndikit.Namespace;
 public class MemoryContext
   extends AbstractLocalContext
 {
-  private Hashtable<String, Object> m_bindings;
+  private final Hashtable<String, Object> m_bindings;
 
   protected MemoryContext( final Namespace namespace,
                            final Hashtable<String, Object> environment,
