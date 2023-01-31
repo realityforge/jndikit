@@ -11,7 +11,8 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import org.realityforge.spice.jndikit.rmi.RMIInitialContextFactory;
 import org.realityforge.spice.jndikit.test.AbstractContextTestCase;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import static org.testng.AssertJUnit.*;
 
 /**
@@ -65,6 +66,7 @@ public abstract class AbstractRMIContextTestCase
     }
   }
 
+  @BeforeMethod
   protected void setUp()
     throws Exception
   {
@@ -72,6 +74,7 @@ public abstract class AbstractRMIContextTestCase
     super.setUp();
   }
 
+  @AfterMethod
   protected void tearDown()
     throws Exception
   {

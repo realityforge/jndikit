@@ -7,23 +7,12 @@
  */
 package org.realityforge.spice.jndikit.test;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import javax.naming.Binding;
-import javax.naming.Context;
-import javax.naming.ContextNotEmptyException;
-import javax.naming.NameClassPair;
-import javax.naming.NameNotFoundException;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
-import javax.naming.NotContextException;
-import javax.naming.Reference;
-import javax.naming.Referenceable;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import javax.naming.*;
+import java.util.*;
+
 import static org.testng.AssertJUnit.*;
 
 /**
@@ -1120,6 +1109,7 @@ public abstract class AbstractContextTestCase
     }
   }
 
+  @BeforeMethod
   protected void setUp()
     throws Exception
   {
@@ -1127,6 +1117,7 @@ public abstract class AbstractContextTestCase
     m_context = m_root.createSubcontext( "test" + c_id++ );
   }
 
+  @AfterMethod
   protected void tearDown()
     throws Exception
   {
